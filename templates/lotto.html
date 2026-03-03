@@ -178,7 +178,7 @@
             const y = cy + Math.sin(angle) * radius;
             boundaryBodies.push(Bodies.rectangle(x, y, 50, 20, {
                 isStatic: true, angle: angle,
-                restitution: 0.0, // 벽의 탄성
+                restitution: 0.8, // 벽의 탄성
                 friction: 0.01
             }));
         }
