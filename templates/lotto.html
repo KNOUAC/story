@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리얼 로또</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #1a1a2e;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        .machine-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            border: 10px solid #2a2a4a;
+            /* 기계 내부의 입체감을 위해 그라데이션 수정 */
+            background: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 80%);
+            box-shadow: inset 0 -20px 40px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        /* 블로어(바람 구멍) 시각적 표시 - 기계 바닥 중앙 */
+        .machine-container::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 30px;
+            background: radial-gradient(ellipse, rgba(100,200,255,0.4) 0%, transparent 70%);
+            z-index: 1;
+            border-radius: 50%;
+        }
+
+        .ball {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 13px;
+            color: #fff;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+            box-shadow: inset -4px -4px 8px rgba(0,0,0,0.4), 2px 2px 4px rgba(0,0,0,0.3);
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            transition: opacity 0.3s;
+        }
+
+        .color-1 { background: #fbc400; color: #333; text-shadow: none; }
+        .color-2 { background: #69c8f2; color: #333; text-shadow: none; }
+        .color-3 { background: #ff7272; }
+        .color-4 { background: #aaaaaa; }
+        .color-5 { background: #b0d840; color: #333; text-shadow: none; }
+
+        .results-container {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 60px;
+            background: rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            border-radius: 40px;
+        }
+
+        .result-ball {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 3px 3px 6px rgba(0,0,0,0.4);
+            animation: rollOut 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .bonus-plus {
+            font-size: 30px; font-weight: bold; color: #ffcc00; margin: 0 10px;
+            animation: popIn 0.5s;
+        }
+
+        @keyframes rollOut {
+            0% { transform: translateX(-50px) rotate(-360deg) scale(0); opacity: 0; }
+            100% { transform: translateX(0) rotate(0deg) scale(1); opacity: 1; }
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        button {
+            margin-top: 30px; padding: 15px 40px; font-size: 18px; font-weight: bold;
+            border: none; border-radius: 30px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4); transition: transform 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        button:disabled { background: #555; cursor: not-allowed; box-shadow: none; }
+    </style>
+</head>
+<body>
+
+    <h2>방송 그거나 이거나 로또</h2>
+    <div class="machine-container" id="machine"></div>
+    <div class="results-container" id="results"></div>
+    <button id="draw-btn" onclick="startDrawSequence()">추첨 시작하기</button>
+
+    <script>
+        function getBallColorClass(num) {
+            if (num <= 10) return 'color-1';
+            if (num <= 20) return 'color-2';
+            if (num <= 30) return 'color-3';
+            if (num <= 40) return 'color-4';
+            return 'color-5';
+        }
+
+        const { Engine, World, Bodies, Body, Events } = Matter;
+        const engine = Engine.create();
+        
+        // ★ 중력 강화: 공이 떴다가 빠르게 벽을 타고 떨어지게 함
+        engine.world.gravity.y = 1.0; 
+
+        const machineEl = document.getElementById('machine');
+        const cx = 160, cy = 160, radius = 155;
+        const balls = []; 
+        let isDrawing = false; 
+
+        // 원통 벽
+        const segments = 40;
+        const boundaryBodies = [];
+        for (let i = 0; i < segments; i++) {
+            const angle = (i / segments) * Math.PI * 2;
+            const x = cx + Math.cos(angle) * radius;
+            const y = cy + Math.sin(angle) * radius;
+            boundaryBodies.push(Bodies.rectangle(x, y, 50, 20, {
+                isStatic: true, angle: angle,
+                restitution: 0.0, // 벽의 탄성
+                friction: 0.01
+            }));
+        }
+        World.add(engine.world, boundaryBodies);
+
+        // 45개 공 생성
+        for (let i = 1; i <= 45; i++) {
+            const body = Bodies.circle(cx + (Math.random()-0.5)*100, cy + 50 + (Math.random()*50), 13, {
+                restitution: 0.9, // 공끼리의 탄성 (팝콘처럼 튀김)
+                frictionAir: 0.000, // 공기 저항 최소화 (빠른 움직임)
+                density: 0.03
+            });
+            World.add(engine.world, body);
+
+            const el = document.createElement('div');
+            el.className = `ball ${getBallColorClass(i)}`;
+            el.innerText = i;
+            machineEl.appendChild(el);
+            balls.push({ number: i, body: body, el: el, active: true });
+        }
+
+        // ★ [핵심] 분수/팝콘 물리 엔진 로직 ★
+        Events.on(engine, 'beforeUpdate', () => {
+            balls.forEach(b => {
+                if (!b.active) return;
+                const pos = b.body.position;
+
+                // 1. 공이 기계의 바닥 중앙(Air Blower Zone)에 모였을 때
+                if (pos.y > cy + 40 && pos.x > cx - 60 && pos.x < cx + 60) {
+                    
+                    // x축 위치에 따라 바깥쪽으로 밀어내는 힘 계산 (분수 모양 형성)
+                    // 중심축(cx) 기준으로 왼쪽에 있으면 왼쪽 대각선 위로, 오른쪽이면 오른쪽 대각선 위로
+                    const horizontalForce = (pos.x - cx) * 0.001; 
+                    
+                    // 강한 수직 상승 바람 (랜덤성 부여로 팝콘 느낌)
+                    const verticalForce = -0.16 - (Math.random() * 0.06);
+
+                    // 약 30% 확률로 강풍 작용 (너무 일정하게 솟는 것을 방지)
+                    if (Math.random() < 0.3) {
+                        Body.applyForce(b.body, pos, {
+                            x: horizontalForce + (Math.random() - 0.5) * 0.02,
+                            y: verticalForce
+                        });
+                    }
+                } 
+                // 2. 공이 양쪽 벽(가장자리)에 있을 때는 바닥으로 잘 굴러떨어지도록 유도
+                else if (pos.y < cy) {
+                     // 위로 솟구친 후에는 약간의 난기류(소용돌이)를 주어 섞이게 함
+                     if (Math.random() < 0.05) {
+                         Body.applyForce(b.body, pos, { x: (Math.random()-0.5)*0.02, y: 0.01 });
+                     }
+                }
+            });
+        });
+
+        // 렌더링 동기화
+        function render() {
+            Engine.update(engine, 1000 / 60);
+            balls.forEach(b => {
+                if (b.active) {
+                    b.el.style.left = b.body.position.x + 'px';
+                    b.el.style.top = b.body.position.y + 'px';
+                }
+            });
+            requestAnimationFrame(render);
+        }
+        render();
+
+        // 추첨 로직
+        function startDrawSequence() {
+            if (isDrawing) return;
+            isDrawing = true;
+            document.getElementById('draw-btn').disabled = true;
+            document.getElementById('results').innerHTML = '';
+
+            const sajuNumbers = []; // 향후 사주 번호 주입 공간
+            const targetNumbers = generateWinningNumbers(sajuNumbers);
+            let drawCount = 0;
+
+            const drawInterval = setInterval(() => {
+                if (drawCount >= 7) {
+                    clearInterval(drawInterval);
+                    isDrawing = false;
+                    document.getElementById('draw-btn').disabled = false;
+                    document.getElementById('draw-btn').innerText = "다시 추첨하기";
+                    return;
+                }
+                const drawnNum = targetNumbers[drawCount];
+                extractBall(drawnNum, drawCount === 6);
+                drawCount++;
+            }, 1800); 
+        }
+
+        function generateWinningNumbers(preset = []) {
+            let result = [...preset];
+            while (result.length < 7) {
+                let randomNum = Math.floor(Math.random() * 45) + 1;
+                if (!result.includes(randomNum)) result.push(randomNum);
+            }
+            return result;
+        }
+
+        function extractBall(number, isBonus) {
+            const targetBall = balls.find(b => b.number === number);
+            if (!targetBall || !targetBall.active) return;
+
+            targetBall.active = false;
+            World.remove(engine.world, targetBall.body);
+            targetBall.el.style.opacity = '0'; 
+
+            const resultsContainer = document.getElementById('results');
+            if (isBonus) {
+                const plusSign = document.createElement('div');
+                plusSign.className = 'bonus-plus';
+                plusSign.innerText = '+';
+                resultsContainer.appendChild(plusSign);
+            }
+
+            const resultBall = document.createElement('div');
+            resultBall.className = `result-ball ${getBallColorClass(number)}`;
+            resultBall.innerText = number;
+            if(number <= 20 || number >= 41) resultBall.style.color = '#333';
+            else resultBall.style.color = '#fff';
+
+            resultsContainer.appendChild(resultBall);
+        }
+    </script>
+</body>
+</html>
