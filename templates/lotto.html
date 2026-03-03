@@ -81,11 +81,15 @@
             margin-top: 40px;
             display: flex;
             align-items: center;
+            justify-content: center; /* [추가] 내부 요소들을 중앙으로 정렬 */
             gap: 10px;
             height: 60px;
             background: rgba(0,0,0,0.3);
             padding: 10px 20px;
             border-radius: 40px;
+            
+            /* [핵심 추가] 가로폭 관련 설정 */
+            width: fit-content;      /* 내용물에 맞게 너비 조절 */
         }
 
         .result-ball {
