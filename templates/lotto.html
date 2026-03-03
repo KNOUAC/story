@@ -18,7 +18,7 @@
         }
         
         body {
-            font-family: 'Pretendard', sans-serif;
+            font-family: 'Pretendard', sans-serif !important;
             background-color: #1a1a2e;
             color: #fff;
             display: flex;
@@ -90,16 +90,13 @@
             margin-top: 40px;
             display: flex;
             align-items: center;
-            justify-content: center; /* [추가] 내부 요소들을 중앙으로 정렬 */
-            gap: 10px;
+            /* [수정] 10px에서 4px~5px로 줄이면 간격이 좁아집니다 */
+            gap: 4px; 
             height: 60px;
             background: rgba(0,0,0,0.3);
-            padding: 10px 20px;
+            /* [추가/수정] 양옆 여백을 줄이면 전체 컨테이너도 더 타이트해집니다 */
+            padding: 4px 15px; 
             border-radius: 40px;
-            
-            /* [핵심 추가] 가로폭 관련 설정 */
-            min-width: 280px;        /* 최소 너비 유지 */
-            width: fit-content;      /* 내용물에 맞게 너비 조절 */
         }
 
         .result-ball {
