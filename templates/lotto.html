@@ -16,18 +16,27 @@
         h1 {
             font-family: 'YeogiOttaeJalnanGothic', sans-serif !important;
         }
-
+        
         body {
-            font-family: 'Pretendard', sans-serif;
+            font-family: 'Pretendard', sans-serif !important;
             background-color: #1a1a2e;
             color: #fff;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* 패널들을 세로로 배치하여 폭 확보 */
+            overflow-x: hidden;    /* 가로 스크롤 방지 */
+            justify-content: center;
             align-items: center;
             padding-top: 50px;
         }
 
         .machine-container {
+            position: relative; 
+            /* 화면 폭이 300px보다 작아지면 화면 폭에 맞춤 */
+            width: 90vw; 
+            max-width: 300px; 
+            height: 90vw; 
+            max-height: 300px; 
+            /* ... 기존 속성 ... */
             position: relative;
             width: 320px;
             height: 320px;
@@ -36,7 +45,7 @@
             /* 기계 내부의 입체감을 위해 그라데이션 수정 */
             background: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 80%);
             box-shadow: inset 0 -20px 40px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
-            overflow: hidden;
+            overflow: visible;
         }
 
         /* 블로어(바람 구멍) 시각적 표시 - 기계 바닥 중앙 */
@@ -81,10 +90,12 @@
             margin-top: 40px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            /* [수정] 10px에서 4px~5px로 줄이면 간격이 좁아집니다 */
+            gap: 4px; 
             height: 60px;
             background: rgba(0,0,0,0.3);
-            padding: 10px 20px;
+            /* [추가/수정] 양옆 여백을 줄이면 전체 컨테이너도 더 타이트해집니다 */
+            padding: 4px 15px; 
             border-radius: 40px;
         }
 
@@ -301,3 +312,4 @@
     </script>
 </body>
 </html>
+
