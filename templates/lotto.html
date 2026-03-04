@@ -170,11 +170,11 @@
 
             // 기존: Bodies.rectangle(x, y, 50, 20, { ...
             // 변경: 벽의 두께(20 -> 100)와 너비(50 -> 80)를 대폭 늘려서 빈틈과 통과를 원천 차단
-            boundaryBodies.push(Bodies.rectangle(x, y, 60, 25, {
+            boundaryBodies.push(Bodies.rectangle(x, y, 50, 20, {
                 isStatic: true, angle: angle,
                 // 공 자체의 탄성이 0.9로 높으므로, 벽의 탄성을 0으로 낮춰서 충격 에너지를 흡수시킴 (뚫고 나가는 힘 상쇄)
-                restitution: 0.4, // 벽의 탄성
-                friction: 0.05
+                restitution: 0.3, // 벽의 탄성
+                friction: 0.01
             }));
         }
         World.add(engine.world, boundaryBodies);
