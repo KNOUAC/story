@@ -6,37 +6,17 @@
     <title>리얼 로또</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <style>
-        @font-face {
-            font-family: 'YeogiOttaeJalnanGothic';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
-            font-weight: normal;
-            font-display: swap;
-        }
-
-        h1 {
-            font-family: 'YeogiOttaeJalnanGothic', sans-serif !important;
-        }
-        
         body {
-            font-family: 'Pretendard', sans-serif !important;
+            font-family: 'Pretendard', sans-serif;
             background-color: #1a1a2e;
             color: #fff;
             display: flex;
-            flex-direction: column; /* 패널들을 세로로 배치하여 폭 확보 */
-            overflow-x: hidden;    /* 가로 스크롤 방지 */
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             padding-top: 50px;
         }
 
         .machine-container {
-            position: relative; 
-            /* 화면 폭이 300px보다 작아지면 화면 폭에 맞춤 */
-            width: 90vw; 
-            max-width: 300px; 
-            height: 90vw; 
-            max-height: 300px; 
-            /* ... 기존 속성 ... */
             position: relative;
             width: 320px;
             height: 320px;
@@ -45,7 +25,7 @@
             /* 기계 내부의 입체감을 위해 그라데이션 수정 */
             background: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 80%);
             box-shadow: inset 0 -20px 40px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
-            overflow: visible;
+            overflow: hidden;
         }
 
         /* 블로어(바람 구멍) 시각적 표시 - 기계 바닥 중앙 */
@@ -90,21 +70,14 @@
             margin-top: 40px;
             display: flex;
             align-items: center;
-            /* [수정] 10px에서 4px~5px로 줄이면 간격이 좁아집니다 */
-            gap: 4px; 
+            gap: 10px;
             height: 60px;
             background: rgba(0,0,0,0.3);
-            /* [추가/수정] 양옆 여백을 줄이면 전체 컨테이너도 더 타이트해집니다 */
-            padding: 4px 15px; 
+            padding: 10px 20px;
             border-radius: 40px;
         }
 
         .result-ball {
-            /* 공의 크기를 화면에 따라 약간 줄어들게 설정 */
-            width: 10vw;
-            height: 10vw;
-            max-width: 36px;
-            max-height: 36px;
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -144,7 +117,7 @@
 </head>
 <body>
 
-    <h1>방송 그거나 이거나</h1>
+    <h2>방송 그거나 이거나 로또</h2>
     <div class="machine-container" id="machine"></div>
     <div class="results-container" id="results"></div>
     <button id="draw-btn" onclick="startDrawSequence()">추첨 시작하기</button>
@@ -176,10 +149,14 @@
             const angle = (i / segments) * Math.PI * 2;
             const x = cx + Math.cos(angle) * radius;
             const y = cy + Math.sin(angle) * radius;
-            boundaryBodies.push(Bodies.rectangle(x, y, 50, 20, {
+
+            // 기존: Bodies.rectangle(x, y, 50, 20, { ...
+            // 변경: 벽의 두께(20 -> 100)와 너비(50 -> 80)를 대폭 늘려서 빈틈과 통과를 원천 차단
+            boundaryBodies.push(Bodies.rectangle(x, y, 55, 25, {
                 isStatic: true, angle: angle,
-                restitution: 0.8, // 벽의 탄성
-                friction: 0.01
+                // 공 자체의 탄성이 0.9로 높으므로, 벽의 탄성을 0으로 낮춰서 충격 에너지를 흡수시킴 (뚫고 나가는 힘 상쇄)
+                restitution: 0.5, // 벽의 탄성
+                friction: 0.05
             }));
         }
         World.add(engine.world, boundaryBodies);
@@ -293,7 +270,7 @@
             if (isBonus) {
                 const plusSign = document.createElement('div');
                 plusSign.className = 'bonus-plus';
-                plusSign.innerText = '✛';
+                plusSign.innerText = '+';
                 resultsContainer.appendChild(plusSign);
             }
 
