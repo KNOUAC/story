@@ -37,6 +37,12 @@
             background: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 80%);
             box-shadow: inset 0 -20px 40px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
             overflow: hidden;
+
+            /* 👇 모바일 파임/깨짐 현상 방지용 추가 코드 👇 */
+            transform: translateZ(0); 
+            -webkit-transform: translateZ(0);
+            mask-image: radial-gradient(white, black);
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
         }
 
         /* 블로어(바람 구멍) 시각적 표시 - 기계 바닥 중앙 */
