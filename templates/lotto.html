@@ -255,6 +255,23 @@
             document.getElementById('draw-btn').disabled = true;
             document.getElementById('results').innerHTML = '';
 
+            // 👇 [수정된 부분] 추첨을 시작하기 전에 빠져나간 공들을 다시 기계 안으로 리셋합니다.
+            balls.forEach(b => {
+                if (!b.active) {
+                    b.active = true; // 상태를 다시 활성화
+                    b.el.style.opacity = '1'; // 공을 다시 화면에 보이게 함
+                    Matter.World.add(engine.world, b.body); // 물리 엔진 월드에 다시 추가
+                    
+                    // 기계 안쪽 중앙으로 공의 위치와 속도 초기화
+                    Matter.Body.setPosition(b.body, { 
+                        x: cx + (Math.random() - 0.5) * 100, 
+                        y: cy + 50 
+                    });
+                    Matter.Body.setVelocity(b.body, { x: 0, y: 0 });
+                }
+            });
+            // 👆 [추가 끝]
+
             const sajuNumbers = []; // 향후 사주 번호 주입 공간
             const targetNumbers = generateWinningNumbers(sajuNumbers);
             let drawCount = 0;
