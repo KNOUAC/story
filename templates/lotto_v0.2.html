@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레알 로또</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'YeogiOttaeJalnanGothic';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
+            font-weight: normal;
+            font-display: swap;
+        }
+
+        h1 { font-family: 'YeogiOttaeJalnanGothic', sans-serif !important; }
+
+        /* ✨ body에 있던 배경색을 없애서 블로그나 브라우저의 기본색을 해치지 않게 합니다. */
+        body {
+            margin: 0; 
+            padding: 0;
+            background-color: transparent; 
+        }
+
+        /* ✨ 게임 내용물만 딱 감싸서 검은색 배경을 칠해주는 전용 랩퍼(포장 박스)입니다. */
+        .lotto-wrapper {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #1a1a2e; 
+            color: #fff;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            padding-top: 50px; 
+            padding-bottom: 50px; 
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+            /* 모바일에서 화면을 길게 누를 때 텍스트가 선택되는 현상 방지 */
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+
+        .machine-container {
+            position: relative; width: 320px; height: 320px; border-radius: 50%;
+            border: 10px solid #2a2a4a;
+            background: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 80%);
+            box-shadow: inset 0 -20px 40px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden; transform: translateZ(0); mask-image: radial-gradient(white, black);
+        }
+
+        .machine-container::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 30px; background: radial-gradient(ellipse, rgba(100,200,255,0.4) 0%, transparent 70%);
+            z-index: 1; border-radius: 50%;
+        }
+
+        .ball {
+            position: absolute; width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 13px; color: #fff; text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+            box-shadow: inset -4px -4px 8px rgba(0,0,0,0.4), 2px 2px 4px rgba(0,0,0,0.3);
+            transform: translate(-50%, -50%); z-index: 10; transition: opacity 0.3s;
+        }
+
+        .color-1 { background: #fbc400; color: #333; text-shadow: none; }
+        .color-2 { background: #69c8f2; color: #333; text-shadow: none; }
+        .color-3 { background: #ff7272; }
+        .color-4 { background: #aaaaaa; }
+        .color-5 { background: #b0d840; color: #333; text-shadow: none; }
+
+        .results-container {
+            margin-top: 40px; display: flex; align-items: center; gap: 4px; height: 60px;
+            background: rgba(0,0,0,0.3); padding: 4px 15px; border-radius: 40px;
+        }
+
+        .result-ball {
+            width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 3px 3px 6px rgba(0,0,0,0.4);
+            animation: rollOut 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .bonus-plus {
+            font-size: 30px; font-weight: bold; color: #ffcc00; margin: 0 10px; animation: popIn 0.5s;
+        }
+
+        @keyframes rollOut {
+            0% { transform: translateX(-50px) rotate(-360deg) scale(0); opacity: 0; }
+            100% { transform: translateX(0) rotate(0deg) scale(1); opacity: 1; }
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .main-btn {
+            margin-top: 30px; padding: 15px 40px; font-size: 18px; font-weight: bold;
+            border: none; border-radius: 30px; background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4); transition: transform 0.2s;
+        }
+        .main-btn:hover { transform: translateY(-2px); }
+        .main-btn:disabled { background: #555; cursor: not-allowed; box-shadow: none; }
+
+        .history-container {
+            margin-top: 40px; width: 100%; max-width: 380px;
+            background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; box-sizing: border-box; display: none; 
+        }
+        .history-container h3 { margin-top: 0; margin-bottom: 15px; text-align: center; font-size: 16px; color: #ffcc00; }
+        .history-list { max-height: 250px; overflow-y: auto; padding-right: 5px; }
+        .history-list::-webkit-scrollbar { width: 6px; }
+        .history-list::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+        .history-row {
+            display: flex; align-items: center; margin-bottom: 10px;
+            background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 12px; animation: popIn 0.3s;
+        }
+        .history-turn { font-weight: bold; font-size: 14px; color: #ccc; margin-right: 15px; width: 45px; }
+        .mini-balls { display: flex; gap: 4px; align-items: center; }
+        .mini-ball {
+            width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 11px; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 1px 3px rgba(0,0,0,0.4);
+        }
+        .mini-bonus-plus { font-size: 14px; color: #ffcc00; margin: 0 4px; font-weight: bold; }
+
+        .button-group { display: flex; gap: 10px; margin-top: 15px; }
+        .action-btn {
+            flex: 1; padding: 12px 0; font-size: 14px; font-weight: bold;
+            border: none; border-radius: 10px; color: white; cursor: pointer; transition: background 0.2s;
+        }
+        .save-btn { background: #4caf50; }
+        .save-btn:hover { background: #45a049; }
+        .clear-btn { background: #555; }
+        .clear-btn:hover { background: #ff4d4d; }
+
+        /* 캡처용 숨겨진 영수증 템플릿 */
+        #receipt-template {
+            position: absolute; left: -9999px; top: 0; width: 380px;
+            background-color: white; color: #333; font-family: 'Pretendard', -apple-system, sans-serif;
+            padding: 25px; box-sizing: border-box; letter-spacing: -0.5px;
+        }
+        .rt-header { font-size: 18px; font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
+        .rt-title-area { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
+        .rt-logo { font-size: 22px; font-weight: 900; color: #666; line-height: 1.1; }
+        .rt-logo span { font-size: 14px; font-weight: bold; color: #888; }
+        .rt-round { font-size: 28px; font-weight: 900; letter-spacing: -1px; }
+        .rt-info { font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 15px; font-family: monospace; }
+        .rt-serial { font-size: 13px; color: #777; margin-top: 5px; word-spacing: 2px; }
+        .rt-divider { border-top: 1px dashed #bbb; margin: 15px 0; }
+        .rt-rows { min-height: 100px; margin-bottom: 15px; }
+        .rt-row { display: flex; align-items: center; font-size: 18px; margin-bottom: 12px; font-family: monospace; }
+        .rt-row-label { width: 80px; font-weight: bold; color: #555; }
+        .rt-row-nums { flex: 1; display: flex; justify-content: space-between; font-weight: 500; }
+        .rt-footer { text-align: right; font-size: 20px; font-weight: 900; color: #333; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: #2a2a4a; padding: 20px; border-radius: 15px;
+            text-align: center; max-width: 90%; max-height: 90vh;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .modal-content p {
+            color: #ffcc00; font-weight: bold; margin-bottom: 15px; font-size: 15px; word-break: keep-all;
+        }
+        #result-image {
+            max-width: 100%; max-height: 60vh; border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            -webkit-touch-callout: default; 
+        }
+        .close-btn {
+            margin-top: 15px; padding: 10px 30px; font-size: 16px; font-weight: bold;
+            background: #ff4d4d; color: white; border: none; border-radius: 20px; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lotto-wrapper">
+        <h1>방송 그거나 이거나</h1>
+        <div class="machine-container" id="machine"></div>
+        <div class="results-container" id="results"></div>
+        <button class="main-btn" id="draw-btn" onclick="startDrawSequence()">추첨하기</button>
+
+        <div class="history-container" id="history-section">
+            <h3>✨ Winning Numbers</h3>
+            <div class="history-list" id="history-list"></div>
+            <div class="button-group" id="history-buttons">
+                <button class="action-btn save-btn" onclick="generateReceiptImage()">번호 저장 🧾</button>
+                <button class="action-btn clear-btn" onclick="clearHistory()">기록 삭제 🗑️</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="receipt-template">
+        <div class="rt-header">구매할 내역 확인</div>
+        <div class="rt-title-area">
+            <div class="rt-logo">동행복권<br><span>Lotto 6/45</span></div>
+            <div class="rt-round">제 <span id="rt-round-num">1214</span>회</div>
+        </div>
+        <div class="rt-info">
+            발 행 일 : <span id="rt-issue-date"></span><br>
+            추 첨 일 : <span id="rt-draw-date"></span><br>
+            지급 기한 : <span id="rt-expire-date"></span><br>
+            <div class="rt-serial" id="rt-serial"></div>
+        </div>
+        <div class="rt-divider"></div>
+        <div class="rt-rows" id="rt-rows"></div>
+        <div class="rt-divider"></div>
+        <div class="rt-footer">금액: <span id="rt-price">5,000</span></div>
+    </div>
+
+    <div id="image-modal" class="modal-overlay">
+        <div class="modal-content">
+            <p>🍀 아래 이미지를 길게 눌러 사진 앱에 저장</p>
+            <img id="result-image" src="" alt="추첨 기록">
+            <button class="close-btn" onclick="closeModal()">닫기 ✖</button>
+        </div>
+    </div>
+
+    <script>
+        function getBallColorClass(num) {
+            if (num <= 10) return 'color-1';
+            if (num <= 20) return 'color-2';
+            if (num <= 30) return 'color-3';
+            if (num <= 40) return 'color-4';
+            return 'color-5';
+        }
+
+        const { Engine, World, Bodies, Body, Events } = Matter;
+        const engine = Engine.create();
+        engine.world.gravity.y = 1.0; 
+
+        const machineEl = document.getElementById('machine');
+        const cx = 160, cy = 160, radius = 155;
+        const balls = []; 
+        let isDrawing = false; 
+        let drawHistory = [];
+
+        const segments = 40;
+        const boundaryBodies = [];
+        for (let i = 0; i < segments; i++) {
+            const angle = (i / segments) * Math.PI * 2;
+            const x = cx + Math.cos(angle) * radius;
+            const y = cy + Math.sin(angle) * radius;
+            boundaryBodies.push(Bodies.rectangle(x, y, 55, 25, {
+                isStatic: true, angle: angle, restitution: 0.0, friction: 0.01
+            }));
+        }
+        World.add(engine.world, boundaryBodies);
+
+        for (let i = 1; i <= 45; i++) {
+            const body = Bodies.circle(cx + (Math.random()-0.5)*100, cy + 50 + (Math.random()*50), 13, {
+                restitution: 0.9, frictionAir: 0.000, density: 0.03
+            });
+            World.add(engine.world, body);
+
+            const el = document.createElement('div');
+            el.className = `ball ${getBallColorClass(i)}`;
+            el.innerText = i;
+            machineEl.appendChild(el);
+            balls.push({ number: i, body: body, el: el, active: true });
+        }
+
+        Events.on(engine, 'beforeUpdate', () => {
+            balls.forEach(b => {
+                if (!b.active) return;
+                const pos = b.body.position;
+
+                if (pos.y > cy + 40 && pos.x > cx - 60 && pos.x < cx + 60) {
+                    const horizontalForce = (pos.x - cx) * 0.001; 
+                    const verticalForce = -0.16 - (Math.random() * 0.06);
+                    if (Math.random() < 0.3) {
+                        Body.applyForce(b.body, pos, { x: horizontalForce + (Math.random() - 0.5) * 0.02, y: verticalForce });
+                    }
+                } else if (pos.y < cy) {
+                     if (Math.random() < 0.05) {
+                         Body.applyForce(b.body, pos, { x: (Math.random()-0.5)*0.02, y: 0.01 });
+                     }
+                }
+            });
+        });
+
+        function render() {
+            Engine.update(engine, 1000 / 60);
+            balls.forEach(b => {
+                if (b.active) {
+                    b.el.style.left = b.body.position.x + 'px';
+                    b.el.style.top = b.body.position.y + 'px';
+                }
+            });
+            requestAnimationFrame(render);
+        }
+        render();
+
+        function startDrawSequence() {
+            if (isDrawing) return;
+            isDrawing = true;
+            
+            const drawBtn = document.getElementById('draw-btn');
+            drawBtn.disabled = true;
+            drawBtn.innerText = "섞는 중... 🌪️"; 
+            document.getElementById('results').innerHTML = '';
+
+            const { World, Body } = Matter; 
+            balls.forEach((b) => World.remove(engine.world, b.body));
+
+            balls.forEach((b, index) => {
+                b.active = true;
+                b.el.style.opacity = '1';
+                Body.setVelocity(b.body, { x: (Math.random() - 0.5) * 2, y: Math.random() * 2 });
+                Body.setAngularVelocity(b.body, 0);
+
+                const row = Math.floor(index / 7);
+                const col = index % 7;
+                Body.setPosition(b.body, { x: cx - 78 + (col * 26), y: cy - 100 + (row * 26) });
+                World.add(engine.world, b.body);
+            });
+
+            setTimeout(() => {
+                drawBtn.innerText = "추첨 중... 🎯"; 
+                const targetNumbers = generateWinningNumbers();
+                let drawCount = 0;
+
+                const drawInterval = setInterval(() => {
+                    if (drawCount >= 7) {
+                        clearInterval(drawInterval);
+                        isDrawing = false;
+                        drawBtn.disabled = false;
+                        drawBtn.innerText = "다시 추첨";
+                        saveHistory(targetNumbers);
+                        return;
+                    }
+                    extractBall(targetNumbers[drawCount], drawCount === 6);
+                    drawCount++;
+                }, 1800); 
+            }, 4000); 
+        }
+
+        function generateWinningNumbers() {
+            let result = [];
+            while (result.length < 7) {
+                let randomNum = Math.floor(Math.random() * 45) + 1;
+                if (!result.includes(randomNum)) result.push(randomNum);
+            }
+            return result;
+        }
+
+        function extractBall(number, isBonus) {
+            const targetBall = balls.find(b => b.number === number);
+            if (!targetBall || !targetBall.active) return;
+
+            targetBall.active = false;
+            World.remove(engine.world, targetBall.body);
+            targetBall.el.style.opacity = '0'; 
+
+            const resultsContainer = document.getElementById('results');
+            if (isBonus) {
+                const plusSign = document.createElement('div');
+                plusSign.className = 'bonus-plus';
+                plusSign.innerText = '✛';
+                resultsContainer.appendChild(plusSign);
+            }
+
+            const resultBall = document.createElement('div');
+            resultBall.className = `result-ball ${getBallColorClass(number)}`;
+            resultBall.innerText = number;
+            if(number <= 20 || number >= 41) resultBall.style.color = '#333';
+            else resultBall.style.color = '#fff';
+            resultsContainer.appendChild(resultBall);
+        }
+
+        function saveHistory(numbers) {
+            drawHistory.push(numbers); 
+            updateHistoryUI(); 
+        }
+
+        function updateHistoryUI() {
+            const section = document.getElementById('history-section');
+            const list = document.getElementById('history-list');
+            if (drawHistory.length > 0) section.style.display = 'block'; 
+            list.innerHTML = '';
+            
+            drawHistory.forEach((nums, index) => {
+                const row = document.createElement('div');
+                row.className = 'history-row';
+                const turnStr = document.createElement('div');
+                turnStr.className = 'history-turn';
+                turnStr.innerText = `게임${index + 1}`;
+                row.appendChild(turnStr);
+
+                const ballsContainer = document.createElement('div');
+                ballsContainer.className = 'mini-balls';
+
+                nums.forEach((num, i) => {
+                    if (i === 6) {
+                        const plus = document.createElement('div');
+                        plus.className = 'mini-bonus-plus';
+                        plus.innerText = '✛';
+                        ballsContainer.appendChild(plus);
+                    }
+                    const b = document.createElement('div');
+                    b.className = `mini-ball ${getBallColorClass(num)}`;
+                    b.innerText = num;
+                    if(num <= 20 || num >= 41) b.style.color = '#333';
+                    else b.style.color = '#fff';
+                    ballsContainer.appendChild(b);
+                });
+                row.appendChild(ballsContainer);
+                list.prepend(row); 
+            });
+        }
+
+        function clearHistory() {
+            if (confirm("추첨 기록을 모두 지우시겠습니까?")) {
+                drawHistory = [];
+                document.getElementById('history-section').style.display = 'none';
+                document.getElementById('history-list').innerHTML = '';
+            }
+        }
+
+        function generateReceiptImage() {
+            if (drawHistory.length === 0) return;
+
+            const now = new Date();
+            const baseDate = new Date('2026-02-28T20:45:00').getTime(); 
+            const diffWeeks = Math.floor((now.getTime() - baseDate) / (7 * 24 * 60 * 60 * 1000));
+            const currentRound = 1213 + diffWeeks + 1; 
+
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const pad = (n) => n.toString().padStart(2, '0');
+            const issueStr = `${now.getFullYear()}/${pad(now.getMonth()+1)}/${pad(now.getDate())} (${days[now.getDay()]}) ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+            
+            let drawDate = new Date(now);
+            let dayOfWeek = drawDate.getDay();
+            let daysToSat = (6 - dayOfWeek + 7) % 7;
+            if (dayOfWeek === 6 && (now.getHours() > 20 || (now.getHours() === 20 && now.getMinutes() >= 45))) {
+                daysToSat = 7; 
+            }
+            drawDate.setDate(drawDate.getDate() + daysToSat);
+            const drawStr = `${drawDate.getFullYear()}/${pad(drawDate.getMonth()+1)}/${pad(drawDate.getDate())}`;
+
+            let expireDate = new Date(drawDate);
+            expireDate.setFullYear(expireDate.getFullYear() + 1);
+            expireDate.setDate(expireDate.getDate() + 1);
+            const expireStr = `${expireDate.getFullYear()}/${pad(expireDate.getMonth()+1)}/${pad(expireDate.getDate())}`;
+
+            const randomSerial = () => Math.floor(10000 + Math.random() * 90000);
+            const serialStr = `${randomSerial()} ${randomSerial()} ${randomSerial()} ${randomSerial()} ${randomSerial()} *****`;
+
+            document.getElementById('rt-round-num').innerText = currentRound;
+            document.getElementById('rt-issue-date').innerText = issueStr;
+            document.getElementById('rt-draw-date').innerText = drawStr;
+            document.getElementById('rt-expire-date').innerText = expireStr;
+            document.getElementById('rt-serial').innerText = serialStr;
+
+            const rtRows = document.getElementById('rt-rows');
+            rtRows.innerHTML = '';
+            
+            const targets = drawHistory.slice(-5);
+            const labels = ['A', 'B', 'C', 'D', 'E'];
+            
+            targets.forEach((nums, index) => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'rt-row';
+                const mainNumbers = nums.slice(0, 6).sort((a, b) => a - b);
+                const numHtml = mainNumbers.map(n => `<span>${pad(n)}</span>`).join('');
+                rowDiv.innerHTML = `<div class="rt-row-label">${labels[index]} 자 동</div><div class="rt-row-nums">${numHtml}</div>`;
+                rtRows.appendChild(rowDiv);
+            });
+
+            const totalPrice = (targets.length * 1000).toLocaleString();
+            document.getElementById('rt-price').innerText = totalPrice;
+
+            const template = document.getElementById('receipt-template');
+            
+            html2canvas(template, {
+                scale: 3, 
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const resultImgElement = document.getElementById('result-image');
+                resultImgElement.src = imgData;
+                document.getElementById('image-modal').style.display = 'flex';
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('image-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
