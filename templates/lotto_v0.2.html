@@ -16,14 +16,17 @@
 
         h1 { font-family: 'YeogiOttaeJalnanGothic', sans-serif !important; }
 
-        /* ✨ body에 있던 배경색을 없애서 블로그나 브라우저의 기본색을 해치지 않게 합니다. */
+        /* ✨ 1. body 기본 여백/배경 제거 & iframe 내부 쓸데없는 스크롤 원천 차단 */
         body {
             margin: 0; 
             padding: 0;
             background-color: transparent; 
+            overflow: hidden; 
+            -webkit-touch-callout: none; /* 모바일 이미지 꾹 누르기 방지 */
+            user-select: none; /* 텍스트 드래그 방지 */
         }
 
-        /* ✨ 게임 내용물만 딱 감싸서 검은색 배경을 칠해주는 전용 랩퍼(포장 박스)입니다. */
+        /* ✨ 2. 게임 내용물을 감싸며 화면 끝까지 검은색을 칠해주는 전용 랩퍼 */
         .lotto-wrapper {
             font-family: 'Pretendard', sans-serif;
             background-color: #1a1a2e; 
@@ -35,10 +38,9 @@
             padding-bottom: 50px; 
             margin: 0 auto;
             width: 100%;
+            min-height: 100vh;  /* 화면 높이 100% 꽉 채우기 */
+            min-height: 100dvh; /* 최신 모바일 브라우저 대응 화면 높이 */
             box-sizing: border-box;
-            /* 모바일에서 화면을 길게 누를 때 텍스트가 선택되는 현상 방지 */
-            -webkit-touch-callout: none;
-            user-select: none;
         }
 
         .machine-container {
