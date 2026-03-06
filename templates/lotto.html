@@ -201,7 +201,7 @@
             balls.push({ number: i, body: body, el: el, active: true });
         }
 
-        // ★ [복구완료] 원래의 부드러운 분수/팝콘 물리 엔진 로직 ★
+        // ★ [핵심] 분수/팝콘 물리 엔진 로직 ★
         Events.on(engine, 'beforeUpdate', () => {
             balls.forEach(b => {
                 if (!b.active) return;
@@ -209,20 +209,27 @@
 
                 // 1. 공이 기계의 바닥 중앙(Air Blower Zone)에 모였을 때
                 if (pos.y > cy + 40 && pos.x > cx - 60 && pos.x < cx + 60) {
+                    
+                    // x축 위치에 따라 바깥쪽으로 밀어내는 힘 계산 (분수 모양 형성)
+                    // 중심축(cx) 기준으로 왼쪽에 있으면 왼쪽 대각선 위로, 오른쪽이면 오른쪽 대각선 위로
                     const horizontalForce = (pos.x - cx) * 0.001; 
+                    
+                    // 강한 수직 상승 바람 (랜덤성 부여로 팝콘 느낌)
                     const verticalForce = -0.16 - (Math.random() * 0.06);
 
+                    // 약 30% 확률로 강풍 작용 (너무 일정하게 솟는 것을 방지)
                     if (Math.random() < 0.3) {
-                        Matter.Body.applyForce(b.body, pos, {
+                        Body.applyForce(b.body, pos, {
                             x: horizontalForce + (Math.random() - 0.5) * 0.02,
                             y: verticalForce
                         });
                     }
                 } 
-                // 2. 가장자리 굴러떨어지기
+                // 2. 공이 양쪽 벽(가장자리)에 있을 때는 바닥으로 잘 굴러떨어지도록 유도
                 else if (pos.y < cy) {
+                     // 위로 솟구친 후에는 약간의 난기류(소용돌이)를 주어 섞이게 함
                      if (Math.random() < 0.05) {
-                         Matter.Body.applyForce(b.body, pos, { x: (Math.random()-0.5)*0.02, y: 0.01 });
+                         Body.applyForce(b.body, pos, { x: (Math.random()-0.5)*0.02, y: 0.01 });
                      }
                 }
             });
@@ -241,54 +248,52 @@
         }
         render();
 
-// 추첨 로직
+        // 추첨 로직
         function startDrawSequence() {
             if (isDrawing) return;
             isDrawing = true;
             
             const drawBtn = document.getElementById('draw-btn');
             drawBtn.disabled = true;
-            drawBtn.innerText = "공 섞는 중... 🌪️"; 
+            drawBtn.innerText = "공 섞는 중... 🌪️"; // 3초 대기 동안 보여줄 텍스트
             document.getElementById('results').innerHTML = '';
 
-            const { World, Body } = Matter; 
-            
-            // 1. 기존 공 제거
-            balls.forEach((b) => {
-                World.remove(engine.world, b.body);
-            });
-
-            // 2. 45개 공 투입 (자연스럽게 우르르 쏟아지며 바로 섞이도록 세팅)
+            // ★ [추가된 부분 1] 공 45개를 상단에 가지런히 정렬하여 다시 떨어뜨림 (오류 방지)
             balls.forEach((b, index) => {
+                // 이전에 뽑힌 공들을 다시 활성화하고 화면에 보이게 함
                 b.active = true;
                 b.el.style.opacity = '1';
 
-                // ★ 핵심: 떨어질 때 뭉쳐있지 않고 바로 흩어지도록 약간의 무작위 속도와 회전 부여
-                Body.setVelocity(b.body, { 
-                    x: (Math.random() - 0.5) * 4, 
-                    y: Math.random() * 4 
-                });
-                Body.setAngularVelocity(b.body, (Math.random() - 0.5) * 0.5);
+                // 엔진에서 잠깐 뺐다가 위치/속도를 리셋하여 다시 넣음
+                World.remove(engine.world, b.body);
 
-                // 간격을 살짝 여유있게 주어 충돌/폭발을 방지하고 자연스럽게 낙하
+                // 떨어질 때 서로 너무 꽉 뭉쳐있지 않도록 아주 미세한 퍼짐 속도만 부여 (기존 팝콘 효과 방해 X)
+                Body.setVelocity(b.body, { 
+                    x: (Math.random() - 0.5) * 2, 
+                    y: Math.random() * 2 
+                });
+                Body.setAngularVelocity(b.body, 0);
+
+                // 상단에 7칸씩 줄을 세워 네모반듯하게 배치 (cx, cy 기준)
                 const row = Math.floor(index / 7);
                 const col = index % 7;
                 Body.setPosition(b.body, { 
-                    x: cx - 80 + (col * 28) + (Math.random() * 2 - 1), 
-                    y: cy - 120 + (row * 28) + (Math.random() * 2 - 1) 
+                    x: cx - 80 + (col * 28), 
+                    y: cy - 120 + (row * 28) 
                 });
 
                 World.add(engine.world, b.body);
             });
 
-            // 3. 3초 대기 후 (우르르 쏟아져서 섞이는 것 관람) 추첨 시작
+            // ★ [추가된 부분 2] 공이 쏟아지고 기존 팝콘 로직으로 섞이는 모습을 3초간 관람
             setTimeout(() => {
-                drawBtn.innerText = "추첨 중... 🎯"; 
+                drawBtn.innerText = "번호 추첨 중... 🎯";
                 
-                const sajuNumbers = []; 
+                const sajuNumbers = []; // 향후 사주 번호 주입 공간
                 const targetNumbers = generateWinningNumbers(sajuNumbers);
                 let drawCount = 0;
 
+                // 3초 대기가 끝난 후 공을 1.8초마다 하나씩 뽑기 시작
                 const drawInterval = setInterval(() => {
                     if (drawCount >= 7) {
                         clearInterval(drawInterval);
@@ -302,7 +307,7 @@
                     drawCount++;
                 }, 1800); 
 
-            }, 3000); // 3초 대기
+            }, 3000); // 3000ms = 3초 관람
         }
 
         function generateWinningNumbers(preset = []) {
