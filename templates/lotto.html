@@ -248,29 +248,66 @@
         }
         render();
 
-        // 추첨 로직
+// 추첨 로직
         function startDrawSequence() {
             if (isDrawing) return;
             isDrawing = true;
-            document.getElementById('draw-btn').disabled = true;
+            
+            const drawBtn = document.getElementById('draw-btn');
+            drawBtn.disabled = true;
+            // 섞이는 동안 보여줄 텍스트로 변경합니다.
+            drawBtn.innerText = "공 섞는 중... 🌪️"; 
+            
             document.getElementById('results').innerHTML = '';
 
-            const sajuNumbers = []; // 향후 사주 번호 주입 공간
-            const targetNumbers = generateWinningNumbers(sajuNumbers);
-            let drawCount = 0;
+            const { World, Body } = Matter; 
+            
+            // 1. 기존 공 제거
+            balls.forEach((b) => {
+                World.remove(engine.world, b.body);
+            });
 
-            const drawInterval = setInterval(() => {
-                if (drawCount >= 7) {
-                    clearInterval(drawInterval);
-                    isDrawing = false;
-                    document.getElementById('draw-btn').disabled = false;
-                    document.getElementById('draw-btn').innerText = "다시 추첨하기";
-                    return;
-                }
-                const drawnNum = targetNumbers[drawCount];
-                extractBall(drawnNum, drawCount === 6);
-                drawCount++;
-            }, 1800); 
+            // 2. 45개 공 정렬 투입 (위에서 쏟아지는 효과)
+            balls.forEach((b, index) => {
+                b.active = true;
+                b.el.style.opacity = '1';
+
+                Body.setVelocity(b.body, { x: 0, y: 0 });
+                Body.setAngularVelocity(b.body, 0);
+
+                const row = Math.floor(index / 7);
+                const col = index % 7;
+                Body.setPosition(b.body, { 
+                    x: cx - 78 + (col * 26), 
+                    y: cy - 100 + (row * 26) 
+                });
+
+                World.add(engine.world, b.body);
+            });
+
+            // ★ [추가된 부분] setTimeout을 이용해 3초(3000ms) 대기 후 추첨 시작
+            setTimeout(() => {
+                drawBtn.innerText = "추첨 중... 🎯"; // 대기 시간이 끝나면 텍스트 변경
+                
+                const sajuNumbers = []; 
+                const targetNumbers = generateWinningNumbers(sajuNumbers);
+                let drawCount = 0;
+
+                // 1.8초마다 공을 하나씩 뽑는 인터벌 시작
+                const drawInterval = setInterval(() => {
+                    if (drawCount >= 7) {
+                        clearInterval(drawInterval);
+                        isDrawing = false;
+                        drawBtn.disabled = false;
+                        drawBtn.innerText = "다시 추첨하기";
+                        return;
+                    }
+                    const drawnNum = targetNumbers[drawCount];
+                    extractBall(drawnNum, drawCount === 6);
+                    drawCount++;
+                }, 1800); 
+
+            }, 5000); // 5000 = 3초 동안 대기
         }
 
         function generateWinningNumbers(preset = []) {
