@@ -201,7 +201,7 @@
             balls.push({ number: i, body: body, el: el, active: true });
         }
 
-        // ★ [핵심] 분수/팝콘 물리 엔진 로직 ★
+        // ★ [복구완료] 원래의 부드러운 분수/팝콘 물리 엔진 로직 ★
         Events.on(engine, 'beforeUpdate', () => {
             balls.forEach(b => {
                 if (!b.active) return;
@@ -209,27 +209,20 @@
 
                 // 1. 공이 기계의 바닥 중앙(Air Blower Zone)에 모였을 때
                 if (pos.y > cy + 40 && pos.x > cx - 60 && pos.x < cx + 60) {
-                    
-                    // x축 위치에 따라 바깥쪽으로 밀어내는 힘 계산 (분수 모양 형성)
-                    // 중심축(cx) 기준으로 왼쪽에 있으면 왼쪽 대각선 위로, 오른쪽이면 오른쪽 대각선 위로
                     const horizontalForce = (pos.x - cx) * 0.001; 
-                    
-                    // 강한 수직 상승 바람 (랜덤성 부여로 팝콘 느낌)
                     const verticalForce = -0.16 - (Math.random() * 0.06);
 
-                    // 약 30% 확률로 강풍 작용 (너무 일정하게 솟는 것을 방지)
                     if (Math.random() < 0.3) {
-                        Body.applyForce(b.body, pos, {
+                        Matter.Body.applyForce(b.body, pos, {
                             x: horizontalForce + (Math.random() - 0.5) * 0.02,
                             y: verticalForce
                         });
                     }
                 } 
-                // 2. 공이 양쪽 벽(가장자리)에 있을 때는 바닥으로 잘 굴러떨어지도록 유도
+                // 2. 가장자리 굴러떨어지기
                 else if (pos.y < cy) {
-                     // 위로 솟구친 후에는 약간의 난기류(소용돌이)를 주어 섞이게 함
                      if (Math.random() < 0.05) {
-                         Body.applyForce(b.body, pos, { x: (Math.random()-0.5)*0.02, y: 0.01 });
+                         Matter.Body.applyForce(b.body, pos, { x: (Math.random()-0.5)*0.02, y: 0.01 });
                      }
                 }
             });
@@ -255,9 +248,7 @@
             
             const drawBtn = document.getElementById('draw-btn');
             drawBtn.disabled = true;
-            // 섞이는 동안 보여줄 텍스트로 변경합니다.
             drawBtn.innerText = "공 섞는 중... 🌪️"; 
-            
             document.getElementById('results').innerHTML = '';
 
             const { World, Body } = Matter; 
@@ -267,33 +258,37 @@
                 World.remove(engine.world, b.body);
             });
 
-            // 2. 45개 공 정렬 투입 (위에서 쏟아지는 효과)
+            // 2. 45개 공 투입 (자연스럽게 우르르 쏟아지며 바로 섞이도록 세팅)
             balls.forEach((b, index) => {
                 b.active = true;
                 b.el.style.opacity = '1';
 
-                Body.setVelocity(b.body, { x: 0, y: 0 });
-                Body.setAngularVelocity(b.body, 0);
+                // ★ 핵심: 떨어질 때 뭉쳐있지 않고 바로 흩어지도록 약간의 무작위 속도와 회전 부여
+                Body.setVelocity(b.body, { 
+                    x: (Math.random() - 0.5) * 4, 
+                    y: Math.random() * 4 
+                });
+                Body.setAngularVelocity(b.body, (Math.random() - 0.5) * 0.5);
 
+                // 간격을 살짝 여유있게 주어 충돌/폭발을 방지하고 자연스럽게 낙하
                 const row = Math.floor(index / 7);
                 const col = index % 7;
                 Body.setPosition(b.body, { 
-                    x: cx - 78 + (col * 26), 
-                    y: cy - 100 + (row * 26) 
+                    x: cx - 80 + (col * 28) + (Math.random() * 2 - 1), 
+                    y: cy - 120 + (row * 28) + (Math.random() * 2 - 1) 
                 });
 
                 World.add(engine.world, b.body);
             });
 
-            // ★ [추가된 부분] setTimeout을 이용해 3초(3000ms) 대기 후 추첨 시작
+            // 3. 3초 대기 후 (우르르 쏟아져서 섞이는 것 관람) 추첨 시작
             setTimeout(() => {
-                drawBtn.innerText = "추첨 중... 🎯"; // 대기 시간이 끝나면 텍스트 변경
+                drawBtn.innerText = "추첨 중... 🎯"; 
                 
                 const sajuNumbers = []; 
                 const targetNumbers = generateWinningNumbers(sajuNumbers);
                 let drawCount = 0;
 
-                // 1.8초마다 공을 하나씩 뽑는 인터벌 시작
                 const drawInterval = setInterval(() => {
                     if (drawCount >= 7) {
                         clearInterval(drawInterval);
@@ -307,7 +302,7 @@
                     drawCount++;
                 }, 1800); 
 
-            }, 5000); // 5000 = 3초 동안 대기
+            }, 3000); // 3초 대기
         }
 
         function generateWinningNumbers(preset = []) {
