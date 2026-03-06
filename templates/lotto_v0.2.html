@@ -21,7 +21,8 @@
             margin: 0; 
             padding: 0;
             background-color: transparent; 
-            overflow: hidden; 
+            overflow-x: hidden; /* 좌우 덜렁거림 방지 */
+            overflow-y: auto;   /* 상하 스크롤은 허용! */
             -webkit-touch-callout: none; /* 모바일 이미지 꾹 누르기 방지 */
             user-select: none; /* 텍스트 드래그 방지 */
         }
