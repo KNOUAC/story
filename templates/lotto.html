@@ -14,66 +14,35 @@
             font-display: swap;
         }
 
-        h1 {
-            font-family: 'YeogiOttaeJalnanGothic', sans-serif !important;
-        }
+        h1 { font-family: 'YeogiOttaeJalnanGothic', sans-serif !important; }
 
         body {
             font-family: 'Pretendard', sans-serif;
-            background-color: #1a1a2e;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-            padding-bottom: 50px;
+            background-color: #1a1a2e; color: #fff;
+            display: flex; flex-direction: column; align-items: center;
+            padding-top: 50px; padding-bottom: 50px; margin: 0;
         }
 
         .machine-container {
-            position: relative;
-            width: 320px;
-            height: 320px;
-            border-radius: 50%;
+            position: relative; width: 320px; height: 320px; border-radius: 50%;
             border: 10px solid #2a2a4a;
             background: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 80%);
             box-shadow: inset 0 -20px 40px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
-            overflow: hidden;
-
-            transform: translateZ(0); 
-            -webkit-transform: translateZ(0);
-            mask-image: radial-gradient(white, black);
-            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            overflow: hidden; transform: translateZ(0); mask-image: radial-gradient(white, black);
         }
 
         .machine-container::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 30px;
-            background: radial-gradient(ellipse, rgba(100,200,255,0.4) 0%, transparent 70%);
-            z-index: 1;
-            border-radius: 50%;
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 30px; background: radial-gradient(ellipse, rgba(100,200,255,0.4) 0%, transparent 70%);
+            z-index: 1; border-radius: 50%;
         }
 
         .ball {
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 13px;
-            color: #fff;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+            position: absolute; width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 13px; color: #fff; text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
             box-shadow: inset -4px -4px 8px rgba(0,0,0,0.4), 2px 2px 4px rgba(0,0,0,0.3);
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            transition: opacity 0.3s;
+            transform: translate(-50%, -50%); z-index: 10; transition: opacity 0.3s;
         }
 
         .color-1 { background: #fbc400; color: #333; text-shadow: none; }
@@ -83,36 +52,19 @@
         .color-5 { background: #b0d840; color: #333; text-shadow: none; }
 
         .results-container {
-            margin-top: 40px;
-            display: flex;
-            align-items: center;
-            gap: 4px; 
-            height: 60px;
-            background: rgba(0,0,0,0.3);
-            padding: 4px 15px; 
-            border-radius: 40px;
+            margin-top: 40px; display: flex; align-items: center; gap: 4px; height: 60px;
+            background: rgba(0,0,0,0.3); padding: 4px 15px; border-radius: 40px;
         }
 
         .result-ball {
-            width: 10vw;
-            height: 10vw;
-            max-width: 36px;
-            max-height: 36px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 20px;
+            width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px;
             box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 3px 3px 6px rgba(0,0,0,0.4);
             animation: rollOut 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .bonus-plus {
-            font-size: 30px; font-weight: bold; color: #ffcc00; margin: 0 10px;
-            animation: popIn 0.5s;
+            font-size: 30px; font-weight: bold; color: #ffcc00; margin: 0 10px; animation: popIn 0.5s;
         }
 
         @keyframes rollOut {
@@ -126,38 +78,29 @@
 
         .main-btn {
             margin-top: 30px; padding: 15px 40px; font-size: 18px; font-weight: bold;
-            border: none; border-radius: 30px;
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-            color: white; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4); transition: transform 0.2s;
+            border: none; border-radius: 30px; background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4); transition: transform 0.2s;
         }
         .main-btn:hover { transform: translateY(-2px); }
         .main-btn:disabled { background: #555; cursor: not-allowed; box-shadow: none; }
 
-        /* 화면용 기록 UI CSS */
         .history-container {
             margin-top: 40px; width: 100%; max-width: 380px;
-            background: rgba(0,0,0,0.3); border-radius: 20px;
-            padding: 20px; box-sizing: border-box; display: none; 
+            background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; box-sizing: border-box; display: none; 
         }
-        .history-container h3 {
-            margin-top: 0; margin-bottom: 15px; text-align: center; font-size: 16px; color: #ffcc00;
-        }
+        .history-container h3 { margin-top: 0; margin-bottom: 15px; text-align: center; font-size: 16px; color: #ffcc00; }
         .history-list { max-height: 250px; overflow-y: auto; padding-right: 5px; }
         .history-list::-webkit-scrollbar { width: 6px; }
         .history-list::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
         .history-row {
             display: flex; align-items: center; margin-bottom: 10px;
-            background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 12px;
-            animation: popIn 0.3s;
+            background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 12px; animation: popIn 0.3s;
         }
         .history-turn { font-weight: bold; font-size: 14px; color: #ccc; margin-right: 15px; width: 45px; }
         .mini-balls { display: flex; gap: 4px; align-items: center; }
         .mini-ball {
-            width: 24px; height: 24px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 11px;
-            box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 1px 3px rgba(0,0,0,0.4);
+            width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 11px; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 1px 3px rgba(0,0,0,0.4);
         }
         .mini-bonus-plus { font-size: 14px; color: #ffcc00; margin: 0 4px; font-weight: bold; }
 
@@ -171,18 +114,11 @@
         .clear-btn { background: #555; }
         .clear-btn:hover { background: #ff4d4d; }
 
-        /* ★ [추가] 캡처용 숨겨진 실제 영수증 템플릿 CSS ★ */
+        /* 캡처용 숨겨진 영수증 템플릿 */
         #receipt-template {
-            position: absolute;
-            left: -9999px; /* 화면에선 안보이게 숨김 */
-            top: 0;
-            width: 380px;
-            background-color: white;
-            color: #333;
-            font-family: 'Pretendard', -apple-system, sans-serif;
-            padding: 25px;
-            box-sizing: border-box;
-            letter-spacing: -0.5px;
+            position: absolute; left: -9999px; top: 0; width: 380px;
+            background-color: white; color: #333; font-family: 'Pretendard', -apple-system, sans-serif;
+            padding: 25px; box-sizing: border-box; letter-spacing: -0.5px;
         }
         .rt-header { font-size: 18px; font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
         .rt-title-area { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
@@ -197,6 +133,31 @@
         .rt-row-label { width: 80px; font-weight: bold; color: #555; }
         .rt-row-nums { flex: 1; display: flex; justify-content: space-between; font-weight: 500; }
         .rt-footer { text-align: right; font-size: 20px; font-weight: 900; color: #333; }
+
+        /* ★ [추가] 이미지 길게 눌러 저장하기 팝업(모달) CSS */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: #2a2a4a; padding: 20px; border-radius: 15px;
+            text-align: center; max-width: 90%; max-height: 90vh;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .modal-content p {
+            color: #ffcc00; font-weight: bold; margin-bottom: 15px; font-size: 15px; word-break: keep-all;
+        }
+        #result-image {
+            max-width: 100%; max-height: 60vh; border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            /* 모바일 브라우저에서 길게 누르기(Context Menu)를 허용하는 마법의 속성 */
+            -webkit-touch-callout: default; 
+        }
+        .close-btn {
+            margin-top: 15px; padding: 10px 30px; font-size: 16px; font-weight: bold;
+            background: #ff4d4d; color: white; border: none; border-radius: 20px; cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -204,7 +165,7 @@
     <h1>방송 그거나 이거나</h1>
     <div class="machine-container" id="machine"></div>
     <div class="results-container" id="results"></div>
-    <button class="main-btn" id="draw-btn" onclick="startDrawSequence()">추첨 시작</button>
+    <button class="main-btn" id="draw-btn" onclick="startDrawSequence()">추첨하기</button>
 
     <div class="history-container" id="history-section">
         <h3>✨ Winning Numbers</h3>
@@ -228,11 +189,16 @@
             <div class="rt-serial" id="rt-serial"></div>
         </div>
         <div class="rt-divider"></div>
-        <div class="rt-rows" id="rt-rows">
-            </div>
+        <div class="rt-rows" id="rt-rows"></div>
         <div class="rt-divider"></div>
-        <div class="rt-footer">
-            금액: <span id="rt-price">5,000</span>
+        <div class="rt-footer">금액: <span id="rt-price">5,000</span></div>
+    </div>
+
+    <div id="image-modal" class="modal-overlay">
+        <div class="modal-content">
+            <p>🍀 아래 이미지를 길게 눌러 사진 앱에 저장</p>
+            <img id="result-image" src="" alt="추첨 기록">
+            <button class="close-btn" onclick="closeModal()">닫기 ✖</button>
         </div>
     </div>
 
@@ -430,18 +396,17 @@
         }
 
         function clearHistory() {
-            if (confirm("이전 추첨 기록을 모두 지우시겠습니까?")) {
+            if (confirm("추첨 기록을 모두 지우시겠습니까?")) {
                 drawHistory = [];
                 document.getElementById('history-section').style.display = 'none';
                 document.getElementById('history-list').innerHTML = '';
             }
         }
 
-        // ★ [업데이트] 영수증 생성 및 공유/저장 로직 ★
+        // ★ [업데이트] 모달을 통해 이미지를 띄우는 로직 ★
         function generateReceiptImage() {
             if (drawHistory.length === 0) return;
 
-            // 1. 날짜 및 회차 계산 로직
             const now = new Date();
             const baseDate = new Date('2026-02-28T20:45:00').getTime(); 
             const diffWeeks = Math.floor((now.getTime() - baseDate) / (7 * 24 * 60 * 60 * 1000));
@@ -468,7 +433,6 @@
             const randomSerial = () => Math.floor(10000 + Math.random() * 90000);
             const serialStr = `${randomSerial()} ${randomSerial()} ${randomSerial()} ${randomSerial()} ${randomSerial()} *****`;
 
-            // 2. 템플릿에 데이터 주입
             document.getElementById('rt-round-num').innerText = currentRound;
             document.getElementById('rt-issue-date').innerText = issueStr;
             document.getElementById('rt-draw-date').innerText = drawStr;
@@ -493,32 +457,27 @@
             const totalPrice = (targets.length * 1000).toLocaleString();
             document.getElementById('rt-price').innerText = totalPrice;
 
-            // 3. html2canvas로 캡처 후 기기별 맞춤 저장 처리
             const template = document.getElementById('receipt-template');
             
+            // 캡처 진행 후 모달 팝업으로 띄우기
             html2canvas(template, {
                 scale: 3, 
                 backgroundColor: '#ffffff'
             }).then(canvas => {
-                // 캔버스를 이미지 파일(Blob) 형태로 변환
-                canvas.toBlob(function(blob) {
-                    const fileName = `로또_제${currentRound}회_영수증.png`;
-                    const file = new File([blob], fileName, { type: 'image/png' });
-
-                    // 모바일 기기 등에서 네이티브 '공유하기(Share)' 기능을 지원하는지 확인
-                    if (navigator.share && navigator.canShare({ files: [file] })) {
-                        navigator.share({
-                            files: [file] // ★ 텍스트와 제목을 모두 빼야 '이미지 저장' 버튼이 생깁니다!
-                        }).catch((error) => console.log('공유 취소됨', error));
-                    } else {
-                        // PC 브라우저나 공유 기능을 지원하지 않는 경우 기존처럼 다운로드
-                        const link = document.createElement('a');
-                        link.download = fileName;
-                        link.href = URL.createObjectURL(blob);
-                        link.click();
-                    }
-                }, 'image/png');
+                // 캔버스를 이미지 데이터 URL로 변환
+                const imgData = canvas.toDataURL('image/png');
+                
+                // 모달 안의 <img> 태그에 이미지 넣고 화면에 표시
+                const resultImgElement = document.getElementById('result-image');
+                resultImgElement.src = imgData;
+                
+                document.getElementById('image-modal').style.display = 'flex';
             });
+        }
+
+        // 모달 닫기 함수
+        function closeModal() {
+            document.getElementById('image-modal').style.display = 'none';
         }
     </script>
 </body>
