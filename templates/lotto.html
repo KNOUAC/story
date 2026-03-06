@@ -437,40 +437,34 @@
             }
         }
 
-        // ★ [핵심] 영수증 생성 및 캡처 로직 ★
+        // ★ [업데이트] 영수증 생성 및 공유/저장 로직 ★
         function generateReceiptImage() {
             if (drawHistory.length === 0) return;
 
             // 1. 날짜 및 회차 계산 로직
             const now = new Date();
-            // 기준일: 2026년 2월 28일 토요일 (제 1213회 기준)
             const baseDate = new Date('2026-02-28T20:45:00').getTime(); 
             const diffWeeks = Math.floor((now.getTime() - baseDate) / (7 * 24 * 60 * 60 * 1000));
-            const currentRound = 1213 + diffWeeks + 1; // 다가오는 추첨회차
+            const currentRound = 1213 + diffWeeks + 1; 
 
             const days = ['일', '월', '화', '수', '목', '금', '토'];
-            
-            // 발행일 문자열 (예: 2026/03/06 (금) 15:30:22)
             const pad = (n) => n.toString().padStart(2, '0');
             const issueStr = `${now.getFullYear()}/${pad(now.getMonth()+1)}/${pad(now.getDate())} (${days[now.getDay()]}) ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
             
-            // 다가오는 토요일 찾기
             let drawDate = new Date(now);
             let dayOfWeek = drawDate.getDay();
             let daysToSat = (6 - dayOfWeek + 7) % 7;
             if (dayOfWeek === 6 && (now.getHours() > 20 || (now.getHours() === 20 && now.getMinutes() >= 45))) {
-                daysToSat = 7; // 토요일 추첨시간 이후면 다음주 토요일
+                daysToSat = 7; 
             }
             drawDate.setDate(drawDate.getDate() + daysToSat);
             const drawStr = `${drawDate.getFullYear()}/${pad(drawDate.getMonth()+1)}/${pad(drawDate.getDate())}`;
 
-            // 지급 기한 (추첨일 + 1년 + 1일 정도가 일반적)
             let expireDate = new Date(drawDate);
             expireDate.setFullYear(expireDate.getFullYear() + 1);
             expireDate.setDate(expireDate.getDate() + 1);
             const expireStr = `${expireDate.getFullYear()}/${pad(expireDate.getMonth()+1)}/${pad(expireDate.getDate())}`;
 
-            // 일련번호 (가짜 난수 생성)
             const randomSerial = () => Math.floor(10000 + Math.random() * 90000);
             const serialStr = `${randomSerial()} ${randomSerial()} ${randomSerial()} ${randomSerial()} ${randomSerial()} *****`;
 
@@ -481,44 +475,51 @@
             document.getElementById('rt-expire-date').innerText = expireStr;
             document.getElementById('rt-serial').innerText = serialStr;
 
-            // 게임 내역 생성 (최대 5게임)
             const rtRows = document.getElementById('rt-rows');
             rtRows.innerHTML = '';
             
-            // 영수증은 최대 5게임(A~E)까지만 한 장에 나옴, 최근 기록 최대 5개를 가져옴
             const targets = drawHistory.slice(-5);
             const labels = ['A', 'B', 'C', 'D', 'E'];
             
             targets.forEach((nums, index) => {
                 const rowDiv = document.createElement('div');
                 rowDiv.className = 'rt-row';
-                
-                // 실제 영수증처럼 보너스 번호(7번째)는 빼고, 앞 6자리만 추출 후 오름차순 정렬
                 const mainNumbers = nums.slice(0, 6).sort((a, b) => a - b);
                 const numHtml = mainNumbers.map(n => `<span>${pad(n)}</span>`).join('');
-
-                rowDiv.innerHTML = `
-                    <div class="rt-row-label">${labels[index]} 자 동</div>
-                    <div class="rt-row-nums">${numHtml}</div>
-                `;
+                rowDiv.innerHTML = `<div class="rt-row-label">${labels[index]} 자 동</div><div class="rt-row-nums">${numHtml}</div>`;
                 rtRows.appendChild(rowDiv);
             });
 
-            // 금액 계산 (게임수 * 1,000원)
             const totalPrice = (targets.length * 1000).toLocaleString();
             document.getElementById('rt-price').innerText = totalPrice;
 
-            // 3. html2canvas로 숨겨진 영수증 템플릿 캡처
+            // 3. html2canvas로 캡처 후 기기별 맞춤 저장 처리
             const template = document.getElementById('receipt-template');
             
             html2canvas(template, {
-                scale: 3, // 고화질 캡처
+                scale: 3, 
                 backgroundColor: '#ffffff'
             }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `로또_제${currentRound}회_영수증.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+                // 캔버스를 이미지 파일(Blob) 형태로 변환
+                canvas.toBlob(function(blob) {
+                    const fileName = `로또_제${currentRound}회_영수증.png`;
+                    const file = new File([blob], fileName, { type: 'image/png' });
+
+                    // 모바일 기기 등에서 네이티브 '공유하기(Share)' 기능을 지원하는지 확인
+                    if (navigator.share && navigator.canShare({ files: [file] })) {
+                        navigator.share({
+                            files: [file],
+                            title: '로또 영수증',
+                            text: '🍀 이번 주 대박 기원 로또 영수증입니다!'
+                        }).catch((error) => console.log('공유 취소됨', error));
+                    } else {
+                        // PC 브라우저나 공유 기능을 지원하지 않는 경우 기존처럼 다운로드
+                        const link = document.createElement('a');
+                        link.download = fileName;
+                        link.href = URL.createObjectURL(blob);
+                        link.click();
+                    }
+                }, 'image/png');
             });
         }
     </script>
