@@ -508,9 +508,7 @@
                     // 모바일 기기 등에서 네이티브 '공유하기(Share)' 기능을 지원하는지 확인
                     if (navigator.share && navigator.canShare({ files: [file] })) {
                         navigator.share({
-                            files: [file],
-                            title: '로또 영수증',
-                            text: '🍀 이번 주 대박 기원 로또 영수증입니다!'
+                            files: [file] // ★ 텍스트와 제목을 모두 빼야 '이미지 저장' 버튼이 생깁니다!
                         }).catch((error) => console.log('공유 취소됨', error));
                     } else {
                         // PC 브라우저나 공유 기능을 지원하지 않는 경우 기존처럼 다운로드
