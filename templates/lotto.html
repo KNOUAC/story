@@ -164,13 +164,7 @@
         const machineEl = document.getElementById('machine');
         const cx = 160, cy = 160, radius = 155;
         const balls = []; 
-        
-        // 기존 코드
         let isDrawing = false; 
-        
-        // 👇 [추가] 폭풍 믹스 상태를 관리하는 변수
-        let isSuperMixing = false;
-        
 
         // 원통 벽
         const segments = 40;
@@ -207,31 +201,23 @@
             balls.push({ number: i, body: body, el: el, active: true });
         }
 
-        // ★ [업그레이드] 폭풍 믹스 & 분수/팝콘 물리 엔진 로직 ★
+        // ★ [핵심] 분수/팝콘 물리 엔진 로직 ★
         Events.on(engine, 'beforeUpdate', () => {
             balls.forEach(b => {
                 if (!b.active) return;
                 const pos = b.body.position;
 
-                // 👇 [새로 추가된 폭풍 믹스 로직] 3초 동안 작동합니다!
-                if (isSuperMixing) {
-                    // 20% 확률로 사방에서 강한 무작위 바람(힘)을 가해 원통 전체를 휘젓게 합니다.
-                    if (Math.random() < 0.2) {
-                        Matter.Body.applyForce(b.body, pos, {
-                            x: (Math.random() - 0.5) * 0.12,  // 좌우 강풍
-                            y: (Math.random() - 0.5) * 0.12   // 상하 강풍
-                        });
-                    }
-                    return; // 폭풍 믹스 중에는 아래의 평소 팝콘 로직을 건너뜁니다.
-                }
-                // 👆 폭풍 믹스 로직 끝
-
-                // --- 아래는 평상시(추첨 중) 작동하는 기존 팝콘 로직 ---
                 // 1. 공이 기계의 바닥 중앙(Air Blower Zone)에 모였을 때
                 if (pos.y > cy + 40 && pos.x > cx - 60 && pos.x < cx + 60) {
+                    
+                    // x축 위치에 따라 바깥쪽으로 밀어내는 힘 계산 (분수 모양 형성)
+                    // 중심축(cx) 기준으로 왼쪽에 있으면 왼쪽 대각선 위로, 오른쪽이면 오른쪽 대각선 위로
                     const horizontalForce = (pos.x - cx) * 0.001; 
+                    
+                    // 강한 수직 상승 바람 (랜덤성 부여로 팝콘 느낌)
                     const verticalForce = -0.16 - (Math.random() * 0.06);
 
+                    // 약 30% 확률로 강풍 작용 (너무 일정하게 솟는 것을 방지)
                     if (Math.random() < 0.3) {
                         Body.applyForce(b.body, pos, {
                             x: horizontalForce + (Math.random() - 0.5) * 0.02,
@@ -239,8 +225,9 @@
                         });
                     }
                 } 
-                // 2. 가장자리 굴러떨어지기
+                // 2. 공이 양쪽 벽(가장자리)에 있을 때는 바닥으로 잘 굴러떨어지도록 유도
                 else if (pos.y < cy) {
+                     // 위로 솟구친 후에는 약간의 난기류(소용돌이)를 주어 섞이게 함
                      if (Math.random() < 0.05) {
                          Body.applyForce(b.body, pos, { x: (Math.random()-0.5)*0.02, y: 0.01 });
                      }
@@ -265,61 +252,25 @@
         function startDrawSequence() {
             if (isDrawing) return;
             isDrawing = true;
-            isSuperMixing = true; // ★ 폭풍 믹스 ON!
-
-            const drawBtn = document.getElementById('draw-btn');
-            drawBtn.disabled = true;
-            drawBtn.innerText = "폭풍 믹스 중... 🌪️";
+            document.getElementById('draw-btn').disabled = true;
             document.getElementById('results').innerHTML = '';
 
-            const { World, Body } = Matter;
+            const sajuNumbers = []; // 향후 사주 번호 주입 공간
+            const targetNumbers = generateWinningNumbers(sajuNumbers);
+            let drawCount = 0;
 
-            // 1. 기계 안의 기존 공들을 비워줍니다.
-            balls.forEach((b) => {
-                World.remove(engine.world, b.body);
-            });
-
-            // 2. 45개의 공을 상단에 가지런히 정렬하여 한 번에 투하합니다.
-            balls.forEach((b, index) => {
-                b.active = true;
-                b.el.style.opacity = '1';
-
-                Body.setVelocity(b.body, { x: 0, y: 0 });
-                Body.setAngularVelocity(b.body, 0);
-
-                const row = Math.floor(index / 7);
-                const col = index % 7;
-                Body.setPosition(b.body, { 
-                    x: cx - 78 + (col * 26), 
-                    y: cy - 100 + (row * 26) 
-                });
-
-                World.add(engine.world, b.body);
-            });
-
-            // ★ 3. 3초(3000ms) 대기 후 본격적인 추첨을 시작합니다.
-            setTimeout(() => {
-                isSuperMixing = false; // ★ 폭풍 믹스 OFF, 평상시 팝콘 모드로 복귀!
-                drawBtn.innerText = "번호 추첨 중... 🎯";
-
-                const sajuNumbers = []; 
-                const targetNumbers = generateWinningNumbers(sajuNumbers);
-                let drawCount = 0;
-
-                const drawInterval = setInterval(() => {
-                    if (drawCount >= 7) {
-                        clearInterval(drawInterval);
-                        isDrawing = false;
-                        drawBtn.disabled = false;
-                        drawBtn.innerText = "다시 추첨하기";
-                        return;
-                    }
-                    const drawnNum = targetNumbers[drawCount];
-                    extractBall(drawnNum, drawCount === 6);
-                    drawCount++;
-                }, 1800); 
-
-            }, 3000); // 3000 = 3초 대기
+            const drawInterval = setInterval(() => {
+                if (drawCount >= 7) {
+                    clearInterval(drawInterval);
+                    isDrawing = false;
+                    document.getElementById('draw-btn').disabled = false;
+                    document.getElementById('draw-btn').innerText = "다시 추첨하기";
+                    return;
+                }
+                const drawnNum = targetNumbers[drawCount];
+                extractBall(drawnNum, drawCount === 6);
+                drawCount++;
+            }, 1800); 
         }
 
         function generateWinningNumbers(preset = []) {
