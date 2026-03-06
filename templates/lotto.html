@@ -255,45 +255,49 @@
             
             const drawBtn = document.getElementById('draw-btn');
             drawBtn.disabled = true;
-            drawBtn.innerText = "공 섞는 중... 🌪️"; // 3초 대기 동안 보여줄 텍스트
+            drawBtn.innerText = "공 섞는 중... 🌪️"; 
             document.getElementById('results').innerHTML = '';
 
-            // ★ [추가된 부분 1] 공 45개를 상단에 가지런히 정렬하여 다시 떨어뜨림 (오류 방지)
+            const { World, Body } = Matter; 
+            
+            // 1. 기존 공 제거
+            balls.forEach((b) => {
+                World.remove(engine.world, b.body);
+            });
+
+            // 2. 45개 공 투입 (★벽에 안 부딪히는 안전한 원래 위치로 복구!)
             balls.forEach((b, index) => {
-                // 이전에 뽑힌 공들을 다시 활성화하고 화면에 보이게 함
                 b.active = true;
                 b.el.style.opacity = '1';
 
-                // 엔진에서 잠깐 뺐다가 위치/속도를 리셋하여 다시 넣음
-                World.remove(engine.world, b.body);
-
-                // 떨어질 때 서로 너무 꽉 뭉쳐있지 않도록 아주 미세한 퍼짐 속도만 부여 (기존 팝콘 효과 방해 X)
+                // 떨어질 때 살짝 흩어지도록 미세한 속도만 부여
                 Body.setVelocity(b.body, { 
                     x: (Math.random() - 0.5) * 2, 
                     y: Math.random() * 2 
                 });
                 Body.setAngularVelocity(b.body, 0);
 
-                // 상단에 7칸씩 줄을 세워 네모반듯하게 배치 (cx, cy 기준)
                 const row = Math.floor(index / 7);
                 const col = index % 7;
+                
+                // ★ [핵심 수정] 폭발의 원인이었던 28px 간격을 
+                // 안전하게 작동했던 26px 간격과 cy-100 높이로 되돌렸습니다.
                 Body.setPosition(b.body, { 
-                    x: cx - 80 + (col * 28), 
-                    y: cy - 120 + (row * 28) 
+                    x: cx - 78 + (col * 26), 
+                    y: cy - 100 + (row * 26) 
                 });
 
                 World.add(engine.world, b.body);
             });
 
-            // ★ [추가된 부분 2] 공이 쏟아지고 기존 팝콘 로직으로 섞이는 모습을 3초간 관람
+            // 3. 쏟아진 공이 섞이는 걸 3초 대기하며 관람 후 추첨 시작
             setTimeout(() => {
-                drawBtn.innerText = "번호 추첨 중... 🎯";
+                drawBtn.innerText = "번호 추첨 중... 🎯"; 
                 
-                const sajuNumbers = []; // 향후 사주 번호 주입 공간
+                const sajuNumbers = []; 
                 const targetNumbers = generateWinningNumbers(sajuNumbers);
                 let drawCount = 0;
 
-                // 3초 대기가 끝난 후 공을 1.8초마다 하나씩 뽑기 시작
                 const drawInterval = setInterval(() => {
                     if (drawCount >= 7) {
                         clearInterval(drawInterval);
@@ -307,7 +311,7 @@
                     drawCount++;
                 }, 1800); 
 
-            }, 3000); // 3000ms = 3초 관람
+            }, 3000); // 3000ms = 3초 대기
         }
 
         function generateWinningNumbers(preset = []) {
