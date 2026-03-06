@@ -179,7 +179,7 @@
             boundaryBodies.push(Bodies.rectangle(x, y, 50, 20, {
                 isStatic: true, angle: angle,
                 // 공 자체의 탄성이 0.9로 높으므로, 벽의 탄성을 0으로 낮춰서 충격 에너지를 흡수시킴 (뚫고 나가는 힘 상쇄)
-                restitution: 0.3, // 벽의 탄성
+                restitution: 0.0, // 벽의 탄성
                 friction: 0.01
             }));
         }
