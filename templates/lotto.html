@@ -67,24 +67,66 @@
         .color-4 { background: #aaaaaa; }
         .color-5 { background: #b0d840; color: #333; text-shadow: none; }
 
+        /* ✨ 프리미엄 추첨 결과 컨테이너 (모바일에 쏙 맞게 타이트하게 축소) */
+        /* ✨ 프리미엄 추첨 결과 컨테이너 (미리 확장된 진열장) */
+        /* ✨ 프리미엄 추첨 결과 컨테이너 (유리관 연출) */
+        /* ✨ 프리미엄 추첨 결과 컨테이너 (DRAW HISTORY 너비에 맞춘 확장) */
+        /* ✨ 프리미엄 추첨 결과 컨테이너 (보너스 공이 여유롭게 들어가도록 400px로 확장) */
         .results-container {
-            margin-top: 40px; display: flex; align-items: center; gap: 4px; height: 60px;
-            background: rgba(0,0,0,0.3); padding: 4px 15px; border-radius: 40px;
+            margin-top: 40px; margin-left: auto; margin-right: auto;
+            display: flex; align-items: center; justify-content: flex-start; 
+            gap: 4px; height: 66px; padding: 0 16px; /* 좌우 여백도 살짝 더 줌 */
+            
+            /* ✨ 안전하고 넉넉한 400px 사이즈! */
+            width: 400px; box-sizing: border-box;
+            overflow: hidden; 
+            
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(228, 197, 133, 0.25); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(228, 197, 133, 0.05); 
         }
+
+        /* ✨ 결과 공 디자인 (40px -> 44px로 볼륨업!) */
         .result-ball {
-            width: 44px; height: 44px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px;
-            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 3px 3px 6px rgba(0,0,0,0.4);
-            animation: rollOut 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 44px; height: 44px; border-radius: 50%; 
+            flex-shrink: 0; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: 800; font-size: 18px; /* 글자 크기도 살짝 키움 */
+            letter-spacing: -0.5px;
+            box-shadow: inset -5px -5px 12px rgba(0,0,0,0.4), inset 2px 2px 8px rgba(255,255,255,0.4), 0 6px 10px rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,0,0,0.2);
+            
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
         }
-        .bonus-plus { font-size: 30px; font-weight: bold; color: #ffcc00; margin: 0 10px; animation: popIn 0.5s; }
 
-        @keyframes rollOut {
-            0% { transform: translateX(-50px) rotate(-360deg) scale(0); opacity: 0; }
-            100% { transform: translateX(0) rotate(0deg) scale(1); opacity: 1; }
+        /* ✨ 새로운 거리(px)에 맞춰 굴러오는 시간(s) 재설정 */
+        .result-ball:nth-child(1) { animation-name: pureRoll1; animation-duration: 2.4s; } 
+        .result-ball:nth-child(2) { animation-name: pureRoll2; animation-duration: 2.1s; } 
+        .result-ball:nth-child(3) { animation-name: pureRoll3; animation-duration: 1.8s; } 
+        .result-ball:nth-child(4) { animation-name: pureRoll4; animation-duration: 1.4s; } 
+        .result-ball:nth-child(5) { animation-name: pureRoll5; animation-duration: 1.1s; } 
+        .result-ball:nth-child(6) { animation-name: pureRoll6; animation-duration: 0.8s; } 
+        .result-ball:nth-child(8) { animation-name: pureRollBonus; animation-duration: 0.5s; } 
+
+        /* 얇고 세련된 보너스 플러스 마크 (크기 살짝 키움) */
+        .bonus-plus {
+            font-size: 22px; font-weight: 300; color: #e4c585; margin: 0 4px; flex-shrink: 0;
+            animation: fadeIn 0.6s ease;
         }
-        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
+        /* ✨ 44px 공의 새로운 둘레(약 138px)에 맞춰 회전 각도 완벽 재계산 */
+        /* ✨ 넓어진 400px 진열장에 맞춰 출발선(translateX)과 회전 각도 완벽 재계산 */
+        @keyframes pureRoll1 { 0% { opacity:0; transform: translateX(380px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-991deg); } }
+        @keyframes pureRoll2 { 0% { opacity:0; transform: translateX(332px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-866deg); } }
+        @keyframes pureRoll3 { 0% { opacity:0; transform: translateX(284px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-740deg); } }
+        @keyframes pureRoll4 { 0% { opacity:0; transform: translateX(236px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-615deg); } }
+        @keyframes pureRoll5 { 0% { opacity:0; transform: translateX(188px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-490deg); } }
+        @keyframes pureRoll6 { 0% { opacity:0; transform: translateX(140px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-365deg); } }
+        @keyframes pureRollBonus { 0% { opacity:0; transform: translateX(80px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-208deg); } }
+        
         .main-btn {
             margin-top: 30px; padding: 15px 40px; font-size: 18px; font-weight: bold;
             border: none; border-radius: 30px; background: linear-gradient(135deg, #ff7e5f, #feb47b);
@@ -93,83 +135,186 @@
         .main-btn:hover { transform: translateY(-2px); }
         .main-btn:disabled { background: #555; cursor: not-allowed; box-shadow: none; }
 
+        /* ✨ 프리미엄 추첨 기록판 디자인 */
         .history-container {
             margin-top: 40px; width: 100%; max-width: 380px;
-            background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; box-sizing: border-box; display: none; 
+            /* 고급스러운 반투명 유리 질감 (Glassmorphism) */
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px; padding: 30px 25px; box-sizing: border-box; display: none; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        .history-container h3 { margin-top: 0; margin-bottom: 15px; text-align: center; font-size: 16px; color: #ffcc00; }
-        .history-list { max-height: 250px; overflow-y: auto; padding-right: 5px; }
+        .history-container h3 { 
+            margin-top: 0; margin-bottom: 25px; text-align: center; 
+            font-size: 13px; font-weight: 700; color: #a1a1aa; 
+            letter-spacing: 4px; text-transform: uppercase; 
+        }
+        .history-list { max-height: 260px; overflow-y: auto; padding-right: 5px; }
+        .history-list::-webkit-scrollbar { width: 4px; }
+        .history-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        
+        /* 기록 줄 (Row) 디자인 */
         .history-row {
-            display: flex; align-items: center; margin-bottom: 10px;
-            background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 12px; animation: popIn 0.3s;
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.25); padding: 14px 18px; border-radius: 16px; 
+            border: 1px solid rgba(255,255,255,0.02); animation: fadeIn 0.4s ease;
         }
-        .history-turn { font-weight: bold; font-size: 14px; color: #ccc; margin-right: 15px; width: 45px; }
-        .mini-balls { display: flex; gap: 4px; align-items: center; }
+        .history-turn { 
+            font-weight: 600; font-size: 11px; color: #71717a; 
+            letter-spacing: 1.5px; 
+        }
+        
+        /* 미니 공 디자인 (세련된 플랫 & 보더 스타일) */
+        .mini-balls { display: flex; gap: 6px; align-items: center; }
         .mini-ball {
-            width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 11px; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 1px 3px rgba(0,0,0,0.4);
+            width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 11px; letter-spacing: -0.5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);
         }
-        .mini-bonus-plus { font-size: 14px; color: #ffcc00; margin: 0 4px; font-weight: bold; }
+        .mini-bonus-plus { font-size: 16px; color: #52525b; font-weight: 300; margin: 0 2px; }
 
-        .button-group { display: flex; gap: 10px; margin-top: 15px; }
-        .action-btn { flex: 1; padding: 12px 0; font-size: 14px; font-weight: bold; border: none; border-radius: 10px; color: white; cursor: pointer; }
-        .save-btn { background: #4caf50; }
-        .clear-btn { background: #555; }
+        /* 프리미엄 버튼 세트 */
+        .button-group { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
+        .action-btn { 
+            width: 100%; padding: 16px 0; font-size: 14px; font-weight: 600; 
+            border: none; border-radius: 14px; cursor: pointer; transition: all 0.2s ease; letter-spacing: 1px;
+        }
+        .save-btn { 
+            background: linear-gradient(135deg, #e4c585 0%, #b38b3a 100%); /* 샴페인 골드 그라데이션 */
+            color: #111; box-shadow: 0 4px 15px rgba(179, 139, 58, 0.2);
+        }
+        .save-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(179, 139, 58, 0.35); }
+        .clear-btn { 
+            background: transparent; color: #71717a; border: 1px solid rgba(255,255,255,0.1); font-weight: 500;
+        }
+        .clear-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
 
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* ✨ 프리미엄 영수증 (이미지 캡처용) 디자인 - 블랙 카드 컨셉 */
         #receipt-template {
-            position: absolute; left: -9999px; top: 0; width: 380px;
-            background-color: white; color: #333; font-family: 'Pretendard', -apple-system, sans-serif;
-            padding: 25px; box-sizing: border-box; letter-spacing: -0.5px;
+            position: absolute; left: -9999px; top: 0; width: 400px;
+            background: linear-gradient(145deg, #161620, #0d0d14); /* 딥 다크 배경 */
+            color: #fff; font-family: 'Pretendard', sans-serif;
+            padding: 40px 30px; box-sizing: border-box;
         }
-        .rt-header { font-size: 18px; font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
-        .rt-title-area { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
-        .rt-logo { font-size: 22px; font-weight: 900; color: #666; line-height: 1.1; }
-        .rt-logo span { font-size: 14px; font-weight: bold; color: #888; }
-        .rt-round { font-size: 28px; font-weight: 900; letter-spacing: -1px; }
-        .rt-info { font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 15px; font-family: monospace; }
-        .rt-serial { font-size: 13px; color: #777; margin-top: 5px; word-spacing: 2px; }
-        .rt-divider { border-top: 1px dashed #bbb; margin: 15px 0; }
-        .rt-rows { min-height: 100px; margin-bottom: 15px; }
-        .rt-row { display: flex; align-items: center; font-size: 18px; margin-bottom: 12px; font-family: monospace; }
-        .rt-row-label { width: 80px; font-weight: bold; color: #555; }
-        .rt-row-nums { flex: 1; display: flex; justify-content: space-between; font-weight: 500; }
-        .rt-footer { text-align: right; font-size: 20px; font-weight: 900; color: #333; }
+        .rt-header {
+            font-size: 13px; font-weight: 600; color: #b38b3a; letter-spacing: 4px;
+            text-align: center; border-bottom: 1px solid rgba(228, 197, 133, 0.2);
+            padding-bottom: 15px; margin-bottom: 25px;
+        }
+        .rt-title-area { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+        .rt-logo { font-size: 24px; font-weight: 800; color: #e4c585; line-height: 1.1; letter-spacing: 1px; }
+        .rt-logo span { font-size: 11px; font-weight: 400; color: #888; letter-spacing: 2px; }
+        .rt-round { font-size: 18px; font-weight: 300; color: #fff; letter-spacing: 1px; }
+        .rt-info { font-size: 12px; line-height: 1.8; color: #a1a1aa; margin-bottom: 20px; letter-spacing: 0.5px; }
+        .rt-info span { color: #e4e4e7; font-weight: 500; }
+        .rt-serial { font-size: 11px; color: #52525b; margin-top: 10px; letter-spacing: 2px; }
+        .rt-divider { border-top: 1px solid rgba(255,255,255,0.08); margin: 25px 0; }
+        .rt-rows { min-height: 100px; margin-bottom: 20px; }
+        .rt-row { display: flex; align-items: center; justify-content: space-between; font-size: 16px; margin-bottom: 16px; }
+        .rt-row-label { font-weight: 600; color: #b38b3a; font-size: 13px; letter-spacing: 1px; }
+        .rt-row-nums { flex: 1; display: flex; justify-content: flex-end; gap: 14px; font-weight: 400; color: #fff; }
+        .rt-row-nums span { width: 22px; text-align: center; }
+        .rt-footer { text-align: right; font-size: 13px; color: #a1a1aa; letter-spacing: 1px; }
+        .rt-footer span { font-size: 24px; font-weight: 700; color: #e4c585; margin-left: 10px; letter-spacing: 0; }
 
+        /* ✨ 모달 팝업창 프리미엄 디자인 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none; justify-content: center; align-items: center; z-index: 1000;
+            background: rgba(0, 0, 0, 0.85); display: none; justify-content: center; align-items: center; z-index: 1000;
         }
-        
         .modal-content {
-            background: #2a2a4a; padding: 20px; border-radius: 15px;
-            text-align: center; max-width: 90%; 
-            
-            /* ✨ 1. 높이 제한을 살짝 줄이고, 하단에 강제 여백을 주어 창을 위로 밀어 올립니다 */
-            max-height: 80vh; 
-            margin-bottom: 15vh; /* 화면 아래에서 15%만큼 띄움 */
-            
-            display: flex; flex-direction: column; align-items: center;
+            background: rgba(20, 20, 30, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08); padding: 30px 25px; border-radius: 24px;
+            text-align: center; max-width: 90%; max-height: 80vh; margin-bottom: 10vh;
+            display: flex; flex-direction: column; align-items: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
-        
-        /* 텍스트 꾹 누르기 방지 */
         .modal-content p {
-            color: #ffcc00; font-weight: bold; margin-bottom: 15px; font-size: 15px; word-break: keep-all;
+            color: #a1a1aa; font-weight: 400; margin-bottom: 20px; font-size: 12px; line-height: 1.6; word-break: keep-all;
             -webkit-user-select: none !important; user-select: none !important; pointer-events: none;
         }
-        
-        /* 이미지 꾹 누르기 강제 허용 */
+        .modal-content p strong { color: #e4c585; font-weight: 600; font-size: 14px; letter-spacing: 1px; display: block; margin-bottom: 4px; }
         #result-image {
-            /* ✨ 2. 이미지가 너무 길어져서 버튼을 밀어내지 않도록 최대 높이를 50vh로 제한합니다 */
-            max-width: 100%; max-height: 50vh; 
-            border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            max-width: 100%; max-height: 48vh; border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid rgba(228, 197, 133, 0.15);
             -webkit-touch-callout: default !important; -webkit-user-select: auto !important; 
             user-select: auto !important; pointer-events: auto;
         }
-        
-        .btn-group { display: flex; gap: 10px; margin-top: 15px; width: 100%; }
-        .dl-btn { flex: 1; padding: 12px 0; font-size: 15px; font-weight: bold; background: #4caf50; color: white; border: none; border-radius: 10px; cursor: pointer; }
-        .close-btn { flex: 1; padding: 12px 0; font-size: 15px; font-weight: bold; background: #ff4d4d; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; width: 100%; }
+        .dl-btn { 
+            width: 100%; padding: 16px 0; font-size: 14px; font-weight: 600; letter-spacing: 1px;
+            background: linear-gradient(135deg, #e4c585 0%, #b38b3a 100%); color: #111; 
+            border: none; border-radius: 14px; cursor: pointer; box-shadow: 0 4px 15px rgba(179, 139, 58, 0.2);
+        }
+        .close-btn { 
+            width: 100%; padding: 16px 0; font-size: 13px; font-weight: 500; letter-spacing: 1px;
+            background: transparent; color: #71717a; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; cursor: pointer; 
+        }
+
+        /* ✨ 모든 버튼의 공통 뼈대 (세련된 비율과 쫀득한 애니메이션 준비) */
+        button {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            border-radius: 30px; /* 세련된 알약(Pill) 모양 */
+            font-size: 16px; font-weight: 700; letter-spacing: 1px;
+            padding: 14px 32px;
+            cursor: pointer;
+            outline: none;
+            /* 🚀 마우스 올리거나 누를 때 쫀득하게 반응하는 물리 엔진 */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+        }
+
+        /* ✨ 1. 메인 버튼 (예: 추첨하기 버튼) - 화려한 골드 메탈릭 */
+        .btn-primary { 
+            /* 금빛 그라데이션 */
+            background: linear-gradient(135deg, #f6d365 0%, #ffb347 100%);
+            color: #1a1a1a; /* 글자는 진한 먹색으로 가독성 확보 */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* 핵심: 밖으로는 금빛 후광, 안으로는 메탈릭한 입체감(베벨) 부여 */
+            box-shadow: 
+                0 8px 20px rgba(255, 179, 71, 0.4), /* 금빛 후광 */
+                inset 0 2px 2px rgba(255, 255, 255, 0.6), /* 위쪽 빛 반사 */
+                inset 0 -4px 4px rgba(0, 0, 0, 0.15); /* 아래쪽 두께감 그림자 */
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5); /* 글자에 살짝 음각 효과 */
+        }
+
+        /* ✨ 2. 서브 & 모달 버튼 (예: 초기화, 기록 저장, 모달 닫기) - 다크 글래스 */
+        .btn-secondary { 
+            background: rgba(20, 20, 20, 0.6);
+            color: #e4c585; /* 시그니처 샴페인 골드 색상 */
+            border: 1px solid rgba(228, 197, 133, 0.3);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            box-shadow: 
+                0 6px 15px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+
+        /* ✨ 마우스 오버 (Hover) - 살짝 떠오르며 빛남 */
+        button:hover {
+            transform: translateY(-2px); /* 위로 살짝 뜸 */
+            filter: brightness(1.1); /* 전체적으로 10% 밝아짐 */
+        }
+
+        /* ✨ 마우스 클릭 (Active) - 꾹 눌리는 타격감! */
+        button:active {
+            transform: translateY(2px) scale(0.97); /* 쑥 들어가면서 살짝 작아짐 */
+            /* 눌렸으므로 그림자 효과를 줄여서 리얼리티 부여 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.2); 
+        }
+
+        /* ✨ 모달 닫기 버튼 (프리미엄 투명 글래스) */
+        .btn-close {
+            position: absolute; top: 20px; right: 20px; z-index: 1000000;
+            padding: 8px 18px; font-size: 14px; font-weight: bold;
+            background: rgba(255, 255, 255, 0.15); /* 기존보다 살짝 더 투명하고 은은하게 */
+            color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 얇은 테두리로 디테일 추가 */
+            border-radius: 20px;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
     </style>
 </head>
 <body>
@@ -181,40 +326,40 @@
         <button class="main-btn" id="draw-btn" onclick="startDrawSequence()">추첨하기</button>
 
         <div class="history-container" id="history-section">
-            <h3>✨ Winning Numbers</h3>
+            <h3>DRAW HISTORY</h3>
             <div class="history-list" id="history-list"></div>
             <div class="button-group" id="history-buttons">
-                <button class="action-btn save-btn" onclick="generateReceiptImage()">번호 저장 🧾</button>
-                <button class="action-btn clear-btn" onclick="clearHistory()">기록 삭제 🗑️</button>
+                <button class="action-btn save-btn" onclick="generateReceiptImage()">SAVE RECEIPT</button>
+                <button class="action-btn clear-btn" onclick="clearHistory()">Clear All</button>
             </div>
         </div>
     </div>
 
     <div id="receipt-template">
-        <div class="rt-header">구매할 내역 확인</div>
+        <div class="rt-header">VIP DRAW RESULT</div>
         <div class="rt-title-area">
-            <div class="rt-logo">동행복권<br><span>Lotto 6/45</span></div>
-            <div class="rt-round">제 <span id="rt-round-num">1214</span>회</div>
+            <div class="rt-logo">PREMIUM<br><span>Lotto 6/45</span></div>
+            <div class="rt-round">EP. <span id="rt-round-num">1214</span></div>
         </div>
         <div class="rt-info">
-            발 행 일 : <span id="rt-issue-date"></span><br>
-            추 첨 일 : <span id="rt-draw-date"></span><br>
-            지급 기한 : <span id="rt-expire-date"></span><br>
+            ISSUED : <span id="rt-issue-date"></span><br>
+            DRAW : <span id="rt-draw-date"></span><br>
+            EXPIRE : <span id="rt-expire-date"></span><br>
             <div class="rt-serial" id="rt-serial"></div>
         </div>
         <div class="rt-divider"></div>
         <div class="rt-rows" id="rt-rows"></div>
         <div class="rt-divider"></div>
-        <div class="rt-footer">금액: <span id="rt-price">5,000</span></div>
+        <div class="rt-footer">TOTAL <span>₩ <span id="rt-price">5,000</span></span></div>
     </div>
 
     <div id="image-modal" class="modal-overlay">
         <div class="modal-content">
-            <p>🍀 아래 버튼을 눌러 이미지를 저장하세요</p>
+            <p><strong>RECEIPT READY</strong>아래 버튼을 누르거나, 일부 브라우저는<br>이미지를 꾹 눌러 사진 앱에 저장할 수 있습니다.</p>
             <img id="result-image" src="" alt="추첨 기록">
             <div class="btn-group">
-                <button id="download-img-btn" class="dl-btn">📥 기기에 저장</button>
-                <button class="close-btn" onclick="closeModal()">닫기 ✖</button>
+                <button id="download-img-btn" class="dl-btn">SAVE IMAGE</button>
+                <button class="close-btn" onclick="closeModal()">Close</button>
             </div>
         </div>
     </div>
@@ -296,6 +441,10 @@
 
         function startDrawSequence() {
             if (isDrawing) return;
+
+            // ✨ 1. 추첨 기계 작동! 레버를 당기는 묵직한 손맛 (50ms)
+            if (navigator.vibrate) navigator.vibrate(50);
+
             isDrawing = true;
             
             const drawBtn = document.getElementById('draw-btn');
@@ -348,6 +497,9 @@
         }
 
         function extractBall(number, isBonus) {
+            // ✨ 2. 공이 하나씩 관으로 튕겨 들어갈 때마다 짧게 '탁!' 치는 손맛 (15ms)
+            if (navigator.vibrate) navigator.vibrate(15);
+            
             const targetBall = balls.find(b => b.number === number);
             if (!targetBall || !targetBall.active) return;
 
@@ -359,7 +511,7 @@
             if (isBonus) {
                 const plusSign = document.createElement('div');
                 plusSign.className = 'bonus-plus';
-                plusSign.innerText = '✛';
+                plusSign.innerText = '+'; // ✨ 깔끔한 얇은 + 기호로 변경
                 resultsContainer.appendChild(plusSign);
             }
 
@@ -385,19 +537,23 @@
             drawHistory.forEach((nums, index) => {
                 const row = document.createElement('div');
                 row.className = 'history-row';
+                
+                // "게임1" 대신 프리미엄 느낌의 "SET 01" 사용
                 const turnStr = document.createElement('div');
                 turnStr.className = 'history-turn';
-                turnStr.innerText = `게임${index + 1}`;
+                const setNum = (index + 1).toString().padStart(2, '0');
+                turnStr.innerText = `SET ${setNum}`;
                 row.appendChild(turnStr);
 
                 const ballsContainer = document.createElement('div');
                 ballsContainer.className = 'mini-balls';
 
                 nums.forEach((num, i) => {
+                    // 보너스 기호를 세련된 얇은 + 로 변경
                     if (i === 6) {
                         const plus = document.createElement('div');
                         plus.className = 'mini-bonus-plus';
-                        plus.innerText = '✛';
+                        plus.innerText = '+';
                         ballsContainer.appendChild(plus);
                     }
                     const b = document.createElement('div');
@@ -466,7 +622,8 @@
                 rowDiv.className = 'rt-row';
                 const mainNumbers = nums.slice(0, 6).sort((a, b) => a - b);
                 const numHtml = mainNumbers.map(n => `<span>${pad(n)}</span>`).join('');
-                rowDiv.innerHTML = `<div class="rt-row-label">${labels[index]} 자 동</div><div class="rt-row-nums">${numHtml}</div>`;
+                // ✨ A 자동 대신 SET A 로 변경
+                rowDiv.innerHTML = `<div class="rt-row-label">SET ${labels[index]}</div><div class="rt-row-nums">${numHtml}</div>`;
                 rtRows.appendChild(rowDiv);
             });
 
@@ -477,7 +634,8 @@
             
             html2canvas(template, {
                 scale: 3, 
-                backgroundColor: '#ffffff'
+                // ✨ 흰색 배경 대신 다크 테마 색상으로 캡처
+                backgroundColor: '#12121c'
             }).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 const resultImgElement = document.getElementById('result-image');
