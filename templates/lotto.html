@@ -72,13 +72,14 @@
         /* ✨ 프리미엄 추첨 결과 컨테이너 (유리관 연출) */
         /* ✨ 프리미엄 추첨 결과 컨테이너 (DRAW HISTORY 너비에 맞춘 확장) */
         /* ✨ 프리미엄 추첨 결과 컨테이너 (보너스 공이 여유롭게 들어가도록 400px로 확장) */
-        .results-container {
+/* ✨ 프리미엄 추첨 결과 컨테이너 (모바일에서 절대 안 잘리는 350px 안전 너비!) */
+.results-container {
             margin-top: 40px; margin-left: auto; margin-right: auto;
             display: flex; align-items: center; justify-content: flex-start; 
-            gap: 4px; height: 66px; padding: 0 16px; /* 좌우 여백도 살짝 더 줌 */
+            gap: 4px; height: 60px; padding: 0 10px; /* 공 크기에 맞춰 높이/여백 축소 */
             
-            /* ✨ 안전하고 넉넉한 400px 사이즈! */
-            width: 400px; box-sizing: border-box;
+            /* ✨ 좁은 폰에서도 잘리지 않도록 안전 사이즈 적용 */
+            width: 350px; max-width: 98%; box-sizing: border-box;
             overflow: hidden; 
             
             background: rgba(255, 255, 255, 0.03); 
@@ -88,12 +89,12 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(228, 197, 133, 0.05); 
         }
 
-        /* ✨ 결과 공 디자인 (40px -> 44px로 볼륨업!) */
+        /* ✨ 결과 공 디자인 (40px로 복구하되, 입체적인 당구공 디테일은 유지) */
         .result-ball {
-            width: 44px; height: 44px; border-radius: 50%; 
+            width: 40px; height: 40px; border-radius: 50%; 
             flex-shrink: 0; 
             display: flex; align-items: center; justify-content: center; 
-            font-weight: 800; font-size: 18px; /* 글자 크기도 살짝 키움 */
+            font-weight: 800; font-size: 16px; /* 글자 크기도 16px로 복구 */
             letter-spacing: -0.5px;
             box-shadow: inset -5px -5px 12px rgba(0,0,0,0.4), inset 2px 2px 8px rgba(255,255,255,0.4), 0 6px 10px rgba(0,0,0,0.4);
             border: 1px solid rgba(0,0,0,0.2);
@@ -102,7 +103,7 @@
             animation-fill-mode: forwards;
         }
 
-        /* ✨ 새로운 거리(px)에 맞춰 굴러오는 시간(s) 재설정 */
+        /* ✨ 굴러오는 시간(s) 유지! (절대 빠지면 안 되는 부분) */
         .result-ball:nth-child(1) { animation-name: pureRoll1; animation-duration: 2.4s; } 
         .result-ball:nth-child(2) { animation-name: pureRoll2; animation-duration: 2.1s; } 
         .result-ball:nth-child(3) { animation-name: pureRoll3; animation-duration: 1.8s; } 
@@ -111,21 +112,20 @@
         .result-ball:nth-child(6) { animation-name: pureRoll6; animation-duration: 0.8s; } 
         .result-ball:nth-child(8) { animation-name: pureRollBonus; animation-duration: 0.5s; } 
 
-        /* 얇고 세련된 보너스 플러스 마크 (크기 살짝 키움) */
+        /* 얇고 세련된 보너스 플러스 마크 (크기 원상복구) */
         .bonus-plus {
-            font-size: 22px; font-weight: 300; color: #e4c585; margin: 0 4px; flex-shrink: 0;
+            font-size: 20px; font-weight: 300; color: #e4c585; margin: 0 3px; flex-shrink: 0;
             animation: fadeIn 0.6s ease;
         }
 
-        /* ✨ 44px 공의 새로운 둘레(약 138px)에 맞춰 회전 각도 완벽 재계산 */
-        /* ✨ 넓어진 400px 진열장에 맞춰 출발선(translateX)과 회전 각도 완벽 재계산 */
-        @keyframes pureRoll1 { 0% { opacity:0; transform: translateX(380px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-991deg); } }
-        @keyframes pureRoll2 { 0% { opacity:0; transform: translateX(332px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-866deg); } }
-        @keyframes pureRoll3 { 0% { opacity:0; transform: translateX(284px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-740deg); } }
-        @keyframes pureRoll4 { 0% { opacity:0; transform: translateX(236px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-615deg); } }
-        @keyframes pureRoll5 { 0% { opacity:0; transform: translateX(188px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-490deg); } }
-        @keyframes pureRoll6 { 0% { opacity:0; transform: translateX(140px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-365deg); } }
-        @keyframes pureRollBonus { 0% { opacity:0; transform: translateX(80px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-208deg); } }
+        /* ✨ 40px 공 둘레(약 125px)와 350px 진열장에 맞춘 회전 각도/거리 완벽 재계산 */
+        @keyframes pureRoll1 { 0% { opacity:0; transform: translateX(330px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-945deg); } }
+        @keyframes pureRoll2 { 0% { opacity:0; transform: translateX(286px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-819deg); } }
+        @keyframes pureRoll3 { 0% { opacity:0; transform: translateX(242px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-693deg); } }
+        @keyframes pureRoll4 { 0% { opacity:0; transform: translateX(198px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-567deg); } }
+        @keyframes pureRoll5 { 0% { opacity:0; transform: translateX(154px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-441deg); } }
+        @keyframes pureRoll6 { 0% { opacity:0; transform: translateX(110px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-315deg); } }
+        @keyframes pureRollBonus { 0% { opacity:0; transform: translateX(60px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-171deg); } }
         
         .main-btn {
             margin-top: 30px; padding: 15px 40px; font-size: 18px; font-weight: bold;
