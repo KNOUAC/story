@@ -16,11 +16,32 @@
 
         h1 { font-family: 'YeogiOttaeJalnanGothic', sans-serif !important; }
 
+        /* ✨ 1. body 기본 여백/배경 제거 & iframe 내부 쓸데없는 스크롤 원천 차단 */
         body {
+            margin: 0; 
+            padding: 0;
+            background-color: transparent;
+            overflow-x: hidden; /* 좌우 덜렁거림 방지 */
+            overflow-y: auto;   /* 상하 스크롤은 허용! */
+            -webkit-touch-callout: none; /* 모바일 이미지 꾹 누르기 방지 */
+            user-select: none; /* 텍스트 드래그 방지 */
+        }
+
+        /* ✨ 2. 게임 내용물을 감싸며 화면 끝까지 검은색을 칠해주는 전용 랩퍼 */
+        .lotto-wrapper {
             font-family: 'Pretendard', sans-serif;
-            background-color: #1a1a2e; color: #fff;
-            display: flex; flex-direction: column; align-items: center;
-            padding-top: 50px; padding-bottom: 50px; margin: 0;
+            background-color: #1a1a2e; 
+            color: #fff;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            padding-top: 50px; 
+            padding-bottom: 50px; 
+            margin: 0 auto;
+            width: 100%;
+            min-height: 100vh;  /* 화면 높이 100% 꽉 채우기 */
+            min-height: 100dvh; /* 최신 모바일 브라우저 대응 화면 높이 */
+            box-sizing: border-box;
         }
 
         .machine-container {
@@ -134,7 +155,6 @@
         .rt-row-nums { flex: 1; display: flex; justify-content: space-between; font-weight: 500; }
         .rt-footer { text-align: right; font-size: 20px; font-weight: 900; color: #333; }
 
-        /* ★ [추가] 이미지 길게 눌러 저장하기 팝업(모달) CSS */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85);
@@ -145,15 +165,27 @@
             text-align: center; max-width: 90%; max-height: 90vh;
             display: flex; flex-direction: column; align-items: center;
         }
+        
         .modal-content p {
             color: #ffcc00; font-weight: bold; margin-bottom: 15px; font-size: 15px; word-break: keep-all;
+            
+            /* ✨ 1. 글씨가 파랗게 선택되는 현상 완벽 차단 */
+            -webkit-user-select: none !important;
+            user-select: none !important; 
+            pointer-events: none; /* 텍스트 터치 자체를 무시하게 만듦 */
         }
+        
         #result-image {
             max-width: 100%; max-height: 60vh; border-radius: 5px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            /* 모바일 브라우저에서 길게 누르기(Context Menu)를 허용하는 마법의 속성 */
-            -webkit-touch-callout: default; 
+            
+            /* ✨ 2. 모바일 기기별 꾹 누르기 저장 기능 강제 활성화 */
+            -webkit-touch-callout: default !important; /* iOS 사파리용 꾹 누르기 허용 */
+            -webkit-user-select: auto !important; /* 안드로이드 크롬용 필수 설정 */
+            user-select: auto !important; /* 전체 선택 방지 속성 강제 해제 */
+            pointer-events: auto; /* 터치 이벤트 정상 인식 */
         }
+
         .close-btn {
             margin-top: 15px; padding: 10px 30px; font-size: 16px; font-weight: bold;
             background: #ff4d4d; color: white; border: none; border-radius: 20px; cursor: pointer;
@@ -162,17 +194,19 @@
 </head>
 <body>
 
-    <h1>방송 그거나 이거나</h1>
-    <div class="machine-container" id="machine"></div>
-    <div class="results-container" id="results"></div>
-    <button class="main-btn" id="draw-btn" onclick="startDrawSequence()">추첨하기</button>
+    <div class="lotto-wrapper">
+        <h1>방송 그거나 이거나</h1>
+        <div class="machine-container" id="machine"></div>
+        <div class="results-container" id="results"></div>
+        <button class="main-btn" id="draw-btn" onclick="startDrawSequence()">추첨하기</button>
 
-    <div class="history-container" id="history-section">
-        <h3>✨ Winning Numbers</h3>
-        <div class="history-list" id="history-list"></div>
-        <div class="button-group" id="history-buttons">
-            <button class="action-btn save-btn" onclick="generateReceiptImage()">번호 저장 🧾</button>
-            <button class="action-btn clear-btn" onclick="clearHistory()">기록 삭제 🗑️</button>
+        <div class="history-container" id="history-section">
+            <h3>✨ Winning Numbers</h3>
+            <div class="history-list" id="history-list"></div>
+            <div class="button-group" id="history-buttons">
+                <button class="action-btn save-btn" onclick="generateReceiptImage()">번호 저장 🧾</button>
+                <button class="action-btn clear-btn" onclick="clearHistory()">기록 삭제 🗑️</button>
+            </div>
         </div>
     </div>
 
@@ -403,7 +437,6 @@
             }
         }
 
-        // ★ [업데이트] 모달을 통해 이미지를 띄우는 로직 ★
         function generateReceiptImage() {
             if (drawHistory.length === 0) return;
 
@@ -459,23 +492,17 @@
 
             const template = document.getElementById('receipt-template');
             
-            // 캡처 진행 후 모달 팝업으로 띄우기
             html2canvas(template, {
                 scale: 3, 
                 backgroundColor: '#ffffff'
             }).then(canvas => {
-                // 캔버스를 이미지 데이터 URL로 변환
                 const imgData = canvas.toDataURL('image/png');
-                
-                // 모달 안의 <img> 태그에 이미지 넣고 화면에 표시
                 const resultImgElement = document.getElementById('result-image');
                 resultImgElement.src = imgData;
-                
                 document.getElementById('image-modal').style.display = 'flex';
             });
         }
 
-        // 모달 닫기 함수
         function closeModal() {
             document.getElementById('image-modal').style.display = 'none';
         }
