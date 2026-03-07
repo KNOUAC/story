@@ -114,12 +114,9 @@
         .result-ball:nth-child(6) { animation-name: pureRoll6; animation-duration: 0.8s; } 
         .result-ball:nth-child(8) { animation-name: pureRollBonus; animation-duration: 0.5s; } 
 
-        /* 얇고 세련된 보너스 플러스 마크 */
+        /* 얇고 세련된 보너스 플러스 마크 (크기 원상복구) */
         .bonus-plus {
-            font-size: 20px; font-weight: 300; color: #e4c585; 
-            /* ✨ 플러스 기호 양옆 여백도 미세하게 줄임 */
-            margin: 0 1px; 
-            flex-shrink: 0;
+            font-size: 20px; font-weight: 300; color: #e4c585; margin: 0 3px; flex-shrink: 0;
             animation: fadeIn 0.6s ease;
         }
 
