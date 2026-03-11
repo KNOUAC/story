@@ -138,19 +138,24 @@
     "summary": "평범한 일상이 서서히 공포로 잠식되어가는 과정을 치밀한 심리 묘사로 담아낸 스릴러",
     "ott": "왓챠, 티빙",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/HfSisHrUTLM",
+    "poster": "https://www.themoviedb.org/t/p/w1280/8lI1p5cPqgXN2qrKZrmI3mhKBfs.jpg"
   },
   {
     "date": "02.20",
-    "title": "미스터김, 영화관에 가다 (2026)",
+    "title": "미스터김, 영화관에 가다 (2025)",
     "rating": "3.6",
     "recommender": "전찬일",
     "summary": "평생 영화를 사랑해온 한 남자의 시선을 통해 한국 영화사의 궤적을 쫓는 다큐멘터리",
-    "ott": "-",
+    "genre": "Documentary",
+    "director": "김동호",
+    "actors": "김동호, 봉준호, 박찬욱, 이창동, 고레에다 히로카즈, 탕웨이, 뤽 베송, 다르덴 형제",
+    "age_rating": "전체",
+    "runtime": "105min",
+    "ott": "",
     "url": "",
-    "trailer": "https://youtu.be/HfSisHrUTLM",
-    "poster": "https://www.themoviedb.org/t/p/w1280/8lI1p5cPqgXN2qrKZrmI3mhKBfs.jpg"
+    "trailer": "https://youtu.be/9MEqBjcoQCo?si=8NvW6jxz_NgppP9L",
+    "poster": "https://img.extmovie.com/files/attach/images/135/468/799/093/6a8bd42008038b6e65cfe5ec07f1a305.jpg"
   },
   {
     "date": "02.20",
