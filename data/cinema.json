@@ -30,7 +30,7 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "https://youtu.be/zZGg9wqKVxw?si=2uE_h9kZunx-qRYC",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/A2A80lvgaagG5ewfP7SKhL8uwUI.jpg, https://www.themoviedb.org/t/p/w1280/x1yUkrpi5XS42aUDyoYjIxXNM50.jpg"
   },
   {
     "date": "03.06",
@@ -52,7 +52,7 @@
     "ott": "넷플릭스, 티빙, 웨이브, 왓챠, U+모바일tv",
     "url": "",
     "trailer": "https://www.youtube.com/embed/S5u7eBsb3Vc",
-    "poster": "https://www.themoviedb.org/t/p/w1280/f9XpbLe4hmrzspsPDdbt8rcjPOf.jpg"
+    "poster": "https://www.themoviedb.org/t/p/w1280/f9XpbLe4hmrzspsPDdbt8rcjPOf.jpg, https://www.themoviedb.org/t/p/w1280/uO6TjYi6vWKRhjmBFScbjh4ja86.jpg"
   },
   {
     "date": "02.27",
@@ -139,8 +139,8 @@
     "summary": "평생 영화를 사랑해온 한 남자의 시선을 통해 한국 영화사의 궤적을 쫓는 다큐멘터리",
     "ott": "-",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/HfSisHrUTLM",
+    "poster": "https://www.themoviedb.org/t/p/w1280/8lI1p5cPqgXN2qrKZrmI3mhKBfs.jpg"
   },
   {
     "date": "02.20",
@@ -150,8 +150,8 @@
     "summary": "월스트리트 자본가들에 맞서 게임스탑 주가 폭등을 이끌어낸 개미 투자자들의 실화",
     "ott": "넷플릭스, 웨이브",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/SV8AcUR0lto",
+    "poster": "https://www.themoviedb.org/t/p/w1280/hSJl0U8Wi1YVORKI0hIbiXt1xSL.jpg, https://www.themoviedb.org/t/p/w1280/hEg4eZ3f9MbBj6oTcw4vOzZBoxH.jpg"
   },
   {
     "date": "02.20",
@@ -161,8 +161,8 @@
     "summary": "사고 이후 자신이 예뻐졌다고 믿게 된 주인공의 유쾌하고 당당한 변화를 그린 코미디",
     "ott": "넷플릭스",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/4266gMN3EDw",
+    "poster": "https://www.themoviedb.org/t/p/w1280/5tw2FTUOBIyg6BcEtE5N2Dxut2N.jpg, https://www.themoviedb.org/t/p/w1280/jSJWVvWCX0mhptCkn81B8PCSG29.jpg"
   },
   {
     "date": "02.13",
@@ -172,8 +172,8 @@
     "summary": "블라디보스토크 항을 배경으로 남북 정보원들의 첩보와 액션을 다룬 영화",
     "ott": "-",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/cf-GgX8e31I",
+    "poster": "https://www.themoviedb.org/t/p/w1280/f7sCSLEPRfV2fWQ0RYOtHhnHXuG.jpg, https://www.themoviedb.org/t/p/w1280/lUK8AWFfm286NQ6Q0SDHG6hV0Xc.jpg"
   },
   {
     "date": "02.13",
@@ -183,8 +183,8 @@
     "summary": "막내의 죽음으로 촉발된 파리 교외 단지의 폭동과 세 형제의 비극적 사투",
     "ott": "넷플릭스",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/vRunUkdkK8s",
+    "poster": "https://i.namu.wiki/i/CP9hNtKzshKIScJyj8btT8sxBZekHxxMB_kQlh5Z3W6MgMUb4S9mwXIfGpCL_hrpNljfLVV-KpuqW3gQ5_jATyADUghwbCGYuZ4N391Xew9j8kLQkXTM6AaLmbH3hUt0ps-w97Pk01fP0bKfR3pTqQ.webp"
   },
   {
     "date": "02.13",
@@ -192,10 +192,10 @@
     "rating": "3.1",
     "recommender": "전찬일",
     "summary": "부잣집 자제로 서로를 속이고 만난 하녀와 자동차 정비공의 비극적인 사랑",
-    "ott": "왓챠, 웨이브",
+    "ott": "유튜브, 왓챠, 웨이브",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://www.youtube.com/embed/gzVaW_fyV-Q",
+    "poster": "https://i.ytimg.com/vi/gzVaW_fyV-Q/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLA14DrElgGM-r0C75g6Nuf9XWk2bA"
   },
   {
     "date": "02.13",
