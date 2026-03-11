@@ -489,31 +489,31 @@
     "rating": "3.5",
     "recommender": "우민호",
     "summary": "창작의 고통과 예술가들의 내면 세계를 다룬 우민호 감독 추천작",
-    "ott": "-",
+    "ott": "애플tv+",
     "url": "",
-    "trailer": "",
+    "trailer": "https://youtu.be/zst0kOdFNu8?si=g_nOjY--Vftc9Cn6",
     "poster": ""
   },
   {
     "date": "01.02",
-    "title": "파더 마더 시스터 브라더",
+    "title": "파더 마더 시스터 브라더 (2025)",
     "rating": "3.4",
     "recommender": "<신작>",
     "summary": "짐 자무쉬 감독의 신작으로, 가족 간의 복잡한 유대와 갈등을 다룬 드라마",
     "ott": "-",
     "url": "",
-    "trailer": "",
+    "trailer": "https://youtu.be/Ea7-E2hosas?si=wMpdWztTeAOCV-P-",
     "poster": ""
   },
   {
     "date": "01.02",
-    "title": "나이브스 아웃: 웨이크 업",
+    "title": "나이브스 아웃: 웨이크 업 데드 맨 (2025)",
     "rating": "3.7",
     "recommender": "라이너",
     "summary": "베누아 블랑 시리즈의 세 번째 추리극으로, 장례식장에서 벌어지는 미스터리",
     "ott": "넷플릭스",
     "url": "",
-    "trailer": "",
+    "trailer": "https://youtu.be/nG_waNjo52Y?si=_e61RzvB2KSqwkGZ",
     "poster": ""
   },
   {
@@ -524,7 +524,7 @@
     "summary": "대만 가족의 일상을 통해 삶의 이면과 죽음, 성장을 깊이 있게 성찰한 명작",
     "ott": "넷플릭스",
     "url": "",
-    "trailer": "",
+    "trailer": "https://youtu.be/4SCs_jbdHwg?si=aIeJuMe25fBvF6EF",
     "poster": ""
   },
   {
@@ -533,9 +533,9 @@
     "rating": "3.8",
     "recommender": "거의없다",
     "summary": "욕망과 타락의 끝을 보여주는 강렬한 연출의 범죄 드라마",
-    "ott": "웨이브",
+    "ott": "웨이브, 애플tv+",
     "url": "",
-    "trailer": "",
+    "trailer": "https://youtu.be/N4cgw8aOJBw?si=mjUIrQrcA_q7qY_G",
     "poster": ""
   },
   {
@@ -546,7 +546,7 @@
     "summary": "체스 레코드사를 중심으로 블루스 음악의 전설들의 흥망성쇠를 담은 영화",
     "ott": "넷플릭스",
     "url": "",
-    "trailer": "",
+    "trailer": "https://youtu.be/0S2Z_zuJxQs?si=uK5dNOPee-1B2bR6",
     "poster": ""
   }
 ]
