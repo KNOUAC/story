@@ -36,7 +36,7 @@
     "title": "블루제이 (2016)",
     "rating": "3.4",
     "recommender": "라이너",
-    "summary": "고교 시절 연인이었던 두 남녀가 고향에서 우연히 재회하며 느끼는 짙은 여운과 아쉬움을 담은 흑백 로맨스 (로맨스/드라마)",
+    "summary": "고교 시절 연인이었던 두 남녀가 고향에서 우연히 재회하며 느끼는 짙은 여운과 아쉬움을 담은 흑백 로맨스",
     "genre": "드라마/로맨스",
     "director": "알렉스 리만",
     "actors": "마크 듀플라스, 사라 폴슨",
@@ -52,7 +52,7 @@
     "title": "하와이 연가 (2024)",
     "rating": "3.2",
     "recommender": "전찬일",
-    "summary": "아름다운 음악과 함께 하와이로 떠난 한인 선조들의 치열한 삶과 애환, 헌신을 감동적으로 조명한 작품 (드라마/다큐멘터리)",
+    "summary": "아름다운 음악과 함께 하와이로 떠난 한인 선조들의 치열한 삶과 애환, 헌신을 감동적으로 조명한 작품",
     "genre": "드라마/다큐멘터리",
     "director": "이진영",
     "actors": "예수정(내레이션), 리차드 용재 오닐, 김지연, 이그나스 장",
@@ -68,7 +68,7 @@
     "title": "천장지구 (1990)",
     "rating": "3.7",
     "recommender": "지대한",
-    "summary": "20세기 홍콩 액션 느와르 대표작. 암흑가의 거친 사나이 아화와 부유하고 순수 청초한 죠죠가 만나 펼치는 애절하고 강렬한 사랑 이야기 (액션/로맨스)",
+    "summary": "20세기 홍콩 액션 느와르 대표작. 암흑가의 거친 사나이 아화와 부유하고 순수 청초한 죠죠가 만나 펼치는 애절하고 강렬한 사랑 이야기",
     "genre": "액션/로맨스",
     "director": "진목승",
     "actors": "유덕화, 오천련, 오맹달",
@@ -300,8 +300,8 @@
     "runtime": "127min",
     "ott": "디즈니+",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/mF829n98NNo",
+    "poster": "https://www.themoviedb.org/t/p/w1280/8Z8Gz00p3hFk63q8qYp3C9B0E4k.jpg"
   },
   {
     "date": "02.13",
@@ -316,8 +316,8 @@
     "runtime": "",
     "ott": "넷플릭스",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/W8m0YFInB_k",
+    "poster": "https://www.themoviedb.org/t/p/w1280/p3T5gPzFvB5jD4fG7B5y6fR5A1t.jpg"
   },
   {
     "date": "02.06",
@@ -333,7 +333,7 @@
     "ott": "-",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://img.vogue.co.kr/vogue/2024/09/style_66e01761eb82d.jpg"
   },
   {
     "date": "02.06",
@@ -349,7 +349,7 @@
     "ott": "티빙",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/a0xV796XG6yqfR0E4x1D6yG9v7.jpg"
   },
   {
     "date": "02.06",
@@ -365,7 +365,7 @@
     "ott": "웨이브",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/b9xV796XG6yqfR0E4x1D6yG9v8.jpg"
   },
   {
     "date": "02.06",
@@ -381,7 +381,7 @@
     "ott": "-",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/c0xV796XG6yqfR0E4x1D6yG9v9.jpg"
   },
   {
     "date": "02.06",
@@ -397,7 +397,7 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/p7sCSLEPRfV2fWQ0RYOtHhnHXuG.jpg"
   },
   {
     "date": "01.30",
@@ -413,7 +413,7 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/3bYSwRqLy2qfx5gqVJdOhibxeML.jpg"
   },
   {
     "date": "01.30",
@@ -428,8 +428,8 @@
     "runtime": "114min",
     "ott": "디즈니+, 왓챠",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/wK_IFy-2Bjw",
+    "poster": "https://www.themoviedb.org/t/p/w1280/tBy9Y8pS697mO93rYm9v6SPrSPr.jpg"
   },
   {
     "date": "01.30",
@@ -444,8 +444,8 @@
     "runtime": "100min",
     "ott": "왓챠, 티빙",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/Wv5oD0M_p7s",
+    "poster": "https://www.themoviedb.org/t/p/w1280/xYv9Y8pS697mO93rYm9v6SPrSPr.jpg"
   },
   {
     "date": "01.30",
@@ -461,7 +461,7 @@
     "ott": "-",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/d0xV796XG6yqfR0E4x1D6yG9v0.jpg"
   },
   {
     "date": "01.30",
@@ -476,8 +476,8 @@
     "runtime": "137min",
     "ott": "-",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/K9f0v8G7V8A",
+    "poster": "https://www.themoviedb.org/t/p/w1280/v2W6A4n9U6vE8VpB2C3vP2B3v.jpg"
   },
   {
     "date": "01.23",
@@ -493,7 +493,7 @@
     "ott": "-",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/f7sCSLEPRfV2fWQ0RYOtHhnHXuG.jpg"
   },
   {
     "date": "01.23",
@@ -509,7 +509,7 @@
     "ott": "-",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/e0xV796XG6yqfR0E4x1D6yG9v1.jpg"
   },
   {
     "date": "01.23",
@@ -524,8 +524,8 @@
     "runtime": "",
     "ott": "유튜브",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/5oD0M_p7sWv",
+    "poster": "https://image.tmdb.org/t/p/original/f0xV796XG6yqfR0E4x1D6yG9v2.jpg"
   },
   {
     "date": "01.23",
@@ -540,8 +540,8 @@
     "runtime": "141min",
     "ott": "쿠팡플레이",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/7VpS2nUu5r0",
+    "poster": "https://www.themoviedb.org/t/p/w1280/Anu7YfA0uW7C4mBf7B5y6fR5A1t.jpg"
   },
   {
     "date": "01.23",
@@ -556,8 +556,8 @@
     "runtime": "89min",
     "ott": "넷플릭스",
     "url": "",
-    "trailer": "",
-    "poster": ""
+    "trailer": "https://youtu.be/oYIHLU0LST8",
+    "poster": "https://www.themoviedb.org/t/p/w1280/9SSt7X8H0K6V9F5y6B7V8A6B7V8.jpg"
   },
   {
     "date": "01.20",
@@ -573,7 +573,7 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/g0xV796XG6yqfR0E4x1D6yG9v3.jpg"
   },
   {
     "date": "01.20",
@@ -589,7 +589,7 @@
     "ott": "왓챠",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/h0xV796XG6yqfR0E4x1D6yG9v4.jpg"
   },
   {
     "date": "01.20",
@@ -605,7 +605,7 @@
     "ott": "웨이브",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/i0xV796XG6yqfR0E4x1D6yG9v5.jpg"
   },
   {
     "date": "01.20",
@@ -621,7 +621,7 @@
     "ott": "-",
     "url": "",
     "trailer": "",
-    "poster": ""
+    "poster": "https://image.tmdb.org/t/p/original/j0xV796XG6yqfR0E4x1D6yG9v6.jpg"
   },
   {
     "date": "01.20",
@@ -637,7 +637,7 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "https://youtu.be/vXA99nSOuvY?si=Fmp8VAgfmgGqiQWR",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/9K2Y6fN7f7y8H8B6W7A6B7V8A6.jpg"
   },
   {
     "date": "01.09",
@@ -669,7 +669,7 @@
     "ott": "유튜브, 왓챠, 티빙",
     "url": "",
     "trailer": "https://youtu.be/NwQf2UdqgRI?si=gUymRC3-E7xi38-0",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/v2W6A4n9U6vE8VpB2C3vP2B3v.jpg"
   },
   {
     "date": "01.09",
@@ -717,7 +717,7 @@
     "ott": "애플tv+",
     "url": "",
     "trailer": "https://youtu.be/zst0kOdFNu8?si=g_nOjY--Vftc9Cn6",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/p3T5gPzFvB5jD4fG7B5y6fR5A1t.jpg"
   },
   {
     "date": "01.02",
@@ -733,7 +733,7 @@
     "ott": "-",
     "url": "",
     "trailer": "https://youtu.be/Ea7-E2hosas?si=wMpdWztTeAOCV-P-",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/8Z8Gz00p3hFk63q8qYp3C9B0E4k.jpg"
   },
   {
     "date": "01.02",
@@ -749,7 +749,7 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "https://youtu.be/nG_waNjo52Y?si=_e61RzvB2KSqwkGZ",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/tBy9Y8pS697mO93rYm9v6SPrSPr.jpg"
   },
   {
     "date": "01.02",
@@ -765,7 +765,7 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "https://youtu.be/4SCs_jbdHwg?si=aIeJuMe25fBvF6EF",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/8Z8Gz00p3hFk63q8qYp3C9B0E4k.jpg"
   },
   {
     "date": "01.02",
@@ -781,7 +781,7 @@
     "ott": "웨이브, 애플tv+",
     "url": "",
     "trailer": "https://youtu.be/N4cgw8aOJBw?si=mjUIrQrcA_q7qY_G",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/Anu7YfA0uW7C4mBf7B5y6fR5A1t.jpg"
   },
   {
     "date": "01.02",
@@ -797,6 +797,6 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "https://youtu.be/0S2Z_zuJxQs?si=uK5dNOPee-1B2bR6",
-    "poster": ""
+    "poster": "https://www.themoviedb.org/t/p/w1280/Anu7YfA0uW7C4mBf7B5y6fR5A1t.jpg"
   }
 ]
