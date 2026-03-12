@@ -429,7 +429,7 @@
     "ott": "디즈니+, 쿠팡플레이",
     "url": "",
     "trailer": "https://youtu.be/wK_IFy-2Bjw",
-    "poster": "https://www.themoviedb.org/t/p/w1280/YIoSwjziSYgLYBNUAp0RtjxgXl.jpg, https://www.themoviedb.org/t/p/w1280/1ASgqNSbY0XFxJYFMogZvpkiq0w.jpg"
+    "poster": "https://www.themoviedb.org/t/p/w1280/7uHEcB9gCJ87JZ5iLfxO9AbIsFR.jpg, https://www.themoviedb.org/t/p/w1280/iEgmwFkOUplARbLgnNrVN7e8mgj.jpg"
   },
   {
     "date": "01.30",
@@ -444,8 +444,8 @@
     "runtime": "100min",
     "ott": "왓챠, 티빙, 웨이브",
     "url": "",
-    "trailer": "https://youtu.be/Wv5oD0M_p7s",
-    "poster": "https://www.themoviedb.org/t/p/w1280/xYv9Y8pS697mO93rYm9v6SPrSPr.jpg"
+    "trailer": "https://youtu.be/rSjMT00pj_g",
+    "poster": "https://www.themoviedb.org/t/p/w1280/qaVDfDgYjRzU4nqTeMtRJmGmz5v.jpg"
   },
   {
     "date": "01.30",
@@ -461,7 +461,7 @@
     "ott": "넷플릭스",
     "url": "",
     "trailer": "https://youtu.be/Ol2czKxD3iU",
-    "poster": "https://image.tmdb.org/t/p/original/d0xV796XG6yqfR0E4x1D6yG9v0.jpg"
+    "poster": "https://www.themoviedb.org/t/p/w1280/j9B3jiO8njb8pqf9gTatwl72d4J.jpg"
   },
   {
     "date": "01.30",
@@ -476,40 +476,40 @@
     "runtime": "122min",
     "ott": "넷플릭스, 왓챠, 웨이브, 쿠팡플레이",
     "url": "",
-    "trailer": "https://youtu.be/K9f0v8G7V8A",
-    "poster": "https://www.themoviedb.org/t/p/w1280/v2W6A4n9U6vE8VpB2C3vP2B3v.jpg"
+    "trailer": "https://youtu.be/EDKC77QS8WM",
+    "poster": "https://www.themoviedb.org/t/p/w1280/zK67RUQeVXv01q6E1TnS4g3Hlw2.jpg, https://www.themoviedb.org/t/p/w1280/zcLenVWSN81H4SOwKLQo4txGw2t.jpg"
   },
   {
     "date": "01.23",
-    "title": "프로젝트 Y",
-    "rating": "2.1",
+    "title": "프로젝트 Y (2026)",
+    "rating": "2.0",
     "recommender": "<신작소개>",
     "summary": "정체불명의 프로젝트를 둘러싼 음모와 추격을 다룬 범죄물",
-    "genre": "액션/스릴러",
+    "genre": "드라마/범죄",
     "director": "이환",
     "actors": "한소희, 전종서",
-    "age_rating": "",
-    "runtime": "",
-    "ott": "-",
+    "age_rating": "15+",
+    "runtime": "108min",
+    "ott": "웨이브, 쿠팡플레이",
     "url": "",
-    "trailer": "",
-    "poster": "https://www.themoviedb.org/t/p/w1280/f7sCSLEPRfV2fWQ0RYOtHhnHXuG.jpg"
+    "trailer": "https://youtu.be/iqhRD7Znrho",
+    "poster": "https://www.themoviedb.org/t/p/w1280/rhVGl3O4k3isb39zYTVZ5rsevts.jpg, https://www.themoviedb.org/t/p/w1280/lZYWkrujr7NMJulfmWOaSn3rlkk.jpg"
   },
   {
     "date": "01.23",
     "title": "직사각형, 삼각형 (2026)",
-    "rating": "3.0",
+    "rating": "3.1",
     "recommender": "라이너",
     "summary": "인간관계의 구조적 한계와 모순을 기하학적 비유로 풀어낸 실험작",
-    "genre": "드라마",
-    "director": "",
-    "actors": "",
-    "age_rating": "",
-    "runtime": "",
-    "ott": "-",
+    "genre": "드라마/코미디",
+    "director": "이희준",
+    "actors": "진선규, 오의식, 오용, 권소현, 정종준, 이제신, 김희정, 정연, 이하랑, 허명행, 이혜정",
+    "age_rating": "15+",
+    "runtime": "45min",
+    "ott": "왓챠, 웨이브",
     "url": "",
-    "trailer": "",
-    "poster": "https://image.tmdb.org/t/p/original/e0xV796XG6yqfR0E4x1D6yG9v1.jpg"
+    "trailer": "https://youtu.be/g8s2gk_sRAg",
+    "poster": "https://www.themoviedb.org/t/p/w1280/n0JGfsh4cQspHXm7DZUGlGtQYkP.jpg"
   },
   {
     "date": "01.23",
