@@ -1,7 +1,7 @@
 [
-  { startDate: '2026-03-01', endDate: '2026-04-25', numbers: [4, 9] },
-  { startDate: '2026-04-26', endDate: '2026-06-27', numbers: [1, 6, 16] },
-  { startDate: '2026-06-28', endDate: '2026-08-29', numbers: [6, 9] },
-  { startDate: '2026-08-30', endDate: '2026-10-31', numbers: [1, 4, 14, 41] },
-  { startDate: '2026-11-01', endDate: '2026-12-26', numbers: [1, 4, 9] }
+  { "startDate": '2026-03-01', "endDate": '2026-04-25', "numbers": [4, 9] },
+  { "startDate": '2026-04-26', "endDate": '2026-06-27', "numbers": [1, 6, 16] },
+  { "startDate": '2026-06-28', "endDate": '2026-08-29', "numbers": [6, 9] },
+  { "startDate": '2026-08-30', "endDate": '2026-10-31', "numbers": [1, 4, 14, 41] },
+  { "startDate": '2026-11-01', "endDate": '2026-12-26', "numbers": [1, 4, 9] }
 ]
