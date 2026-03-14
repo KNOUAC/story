@@ -97,7 +97,7 @@
     "age_rating": "15+",
     "runtime": "90min",
     "ott": "넷플릭스, 티빙, 웨이브, 왓챠, U+모바일tv",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=4dna1UByqVA",
     "trailer": "https://youtu.be/S5u7eBsb3Vc",
     "poster": "https://www.themoviedb.org/t/p/w1280/f9XpbLe4hmrzspsPDdbt8rcjPOf.jpg, https://www.themoviedb.org/t/p/w1280/uO6TjYi6vWKRhjmBFScbjh4ja86.jpg"
   },
@@ -182,14 +182,14 @@
     "age_rating": "15+",
     "runtime": "90min",
     "ott": "넷플릭스",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=OVt-wkNwt8k",
     "trailer": "https://youtu.be/ep7ota84VZA",
     "poster": "https://www.themoviedb.org/t/p/w1280/3wzd1g17rYoPWDhsbBHRQAYOveJ.jpg, https://www.themoviedb.org/t/p/w1280/mQGQosr6c2scyoJhydaV7eiTcHF.jpg"
   },
   {
     "date": "02.20",
     "title": "레이디 두아",
-    "year": null,
+    "year": "2026",
     "rating": "3.5",
     "recommender": "<신작소개>",
     "summary": "가짜일지라도 명품과 같은 삶을 살고 싶었던 여자와 그녀를 쫓는 형사의 심리 스릴러",
