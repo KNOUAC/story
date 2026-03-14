@@ -34,14 +34,13 @@
             flex-direction: column; 
             align-items: center;
             padding-top: 50px; 
-            padding-bottom: 150px; /* ✨ 사파리 하단 메뉴바 가림 방지용 넉넉한 여백 */
+            padding-bottom: 150px; 
             margin: 0 auto;
             width: 100%;
             min-height: 100vh;
             box-sizing: border-box;
         }
 
-        /* 기계 및 공 디자인 생략 (기존과 동일) */
         .machine-container {
             position: relative; width: 320px; height: 320px; border-radius: 50%;
             border: 10px solid #2a2a4a;
@@ -67,23 +66,13 @@
         .color-4 { background: #aaaaaa; }
         .color-5 { background: #b0d840; color: #333; text-shadow: none; }
 
-        /* ✨ 프리미엄 추첨 결과 컨테이너 (모바일에 쏙 맞게 타이트하게 축소) */
-        /* ✨ 프리미엄 추첨 결과 컨테이너 (미리 확장된 진열장) */
-        /* ✨ 프리미엄 추첨 결과 컨테이너 (유리관 연출) */
-        /* ✨ 프리미엄 추첨 결과 컨테이너 (DRAW HISTORY 너비에 맞춘 확장) */
-        /* ✨ 프리미엄 추첨 결과 컨테이너 (보너스 공이 여유롭게 들어가도록 400px로 확장) */
-        /* ✨ 프리미엄 추첨 결과 컨테이너 (모바일에서 절대 안 잘리는 350px 안전 너비!) */
         .results-container {
             margin-top: 40px; margin-left: auto; margin-right: auto;
             display: flex; align-items: center; justify-content: flex-start; 
-            
-            /* ✨ 핵심: 공 사이 간격을 4px -> 2px로 줄여서 우측에 미세한 여백을 만듦 */
             gap: 2px; 
-            
             height: 60px; padding: 0 10px; 
             width: 350px; max-width: 98%; box-sizing: border-box;
             overflow: hidden; 
-            
             background: rgba(255, 255, 255, 0.03); 
             border: 1px solid rgba(228, 197, 133, 0.25); 
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -91,7 +80,6 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(228, 197, 133, 0.05); 
         }
 
-        /* ✨ 결과 공 디자인 (40px) */
         .result-ball {
             width: 40px; height: 40px; border-radius: 50%; 
             flex-shrink: 0; 
@@ -100,12 +88,10 @@
             letter-spacing: -0.5px;
             box-shadow: inset -5px -5px 12px rgba(0,0,0,0.4), inset 2px 2px 8px rgba(255,255,255,0.4), 0 6px 10px rgba(0,0,0,0.4);
             border: 1px solid rgba(0,0,0,0.2);
-            
             animation-timing-function: ease-out;
             animation-fill-mode: forwards;
         }
 
-        /* 굴러오는 시간(s) 유지 */
         .result-ball:nth-child(1) { animation-name: pureRoll1; animation-duration: 2.4s; } 
         .result-ball:nth-child(2) { animation-name: pureRoll2; animation-duration: 2.1s; } 
         .result-ball:nth-child(3) { animation-name: pureRoll3; animation-duration: 1.8s; } 
@@ -114,13 +100,11 @@
         .result-ball:nth-child(6) { animation-name: pureRoll6; animation-duration: 0.8s; } 
         .result-ball:nth-child(8) { animation-name: pureRollBonus; animation-duration: 0.5s; } 
 
-        /* 얇고 세련된 보너스 플러스 마크 (크기 원상복구) */
         .bonus-plus {
             font-size: 20px; font-weight: 300; color: #e4c585; margin: 0 5px; flex-shrink: 0;
             animation: fadeIn 0.6s ease;
         }
 
-        /* ✨ 줄어든 간격(2px)에 맞춰 출발선(translateX)과 회전 각도(rotate) 완벽 재계산! */
         @keyframes pureRoll1 { 0% { opacity:0; transform: translateX(330px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-945deg); } }
         @keyframes pureRoll2 { 0% { opacity:0; transform: translateX(288px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-825deg); } }
         @keyframes pureRoll3 { 0% { opacity:0; transform: translateX(246px) rotate(0deg); } 100% { opacity:1; transform: translateX(0) rotate(-705deg); } }
@@ -137,10 +121,8 @@
         .main-btn:hover { transform: translateY(-2px); }
         .main-btn:disabled { background: #555; cursor: not-allowed; box-shadow: none; }
 
-        /* ✨ 프리미엄 추첨 기록판 디자인 */
         .history-container {
             margin-top: 40px; width: 100%; max-width: 380px;
-            /* 고급스러운 반투명 유리 질감 (Glassmorphism) */
             background: rgba(255, 255, 255, 0.03); 
             border: 1px solid rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -156,7 +138,6 @@
         .history-list::-webkit-scrollbar { width: 4px; }
         .history-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
         
-        /* 기록 줄 (Row) 디자인 */
         .history-row {
             display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
             background: rgba(0, 0, 0, 0.25); padding: 14px 18px; border-radius: 16px; 
@@ -167,7 +148,6 @@
             letter-spacing: 1.5px; 
         }
         
-        /* 미니 공 디자인 (세련된 플랫 & 보더 스타일) */
         .mini-balls { display: flex; gap: 6px; align-items: center; }
         .mini-ball {
             width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -176,14 +156,13 @@
         }
         .mini-bonus-plus { font-size: 16px; color: #52525b; font-weight: 300; margin: 0 2px; }
 
-        /* 프리미엄 버튼 세트 */
         .button-group { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
         .action-btn { 
             width: 100%; padding: 16px 0; font-size: 14px; font-weight: 600; 
             border: none; border-radius: 14px; cursor: pointer; transition: all 0.2s ease; letter-spacing: 1px;
         }
         .save-btn { 
-            background: linear-gradient(135deg, #e4c585 0%, #b38b3a 100%); /* 샴페인 골드 그라데이션 */
+            background: linear-gradient(135deg, #e4c585 0%, #b38b3a 100%);
             color: #111; box-shadow: 0 4px 15px rgba(179, 139, 58, 0.2);
         }
         .save-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(179, 139, 58, 0.35); }
@@ -194,10 +173,9 @@
 
         @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
 
-        /* ✨ 프리미엄 영수증 (이미지 캡처용) 디자인 - 블랙 카드 컨셉 */
         #receipt-template {
             position: absolute; left: -9999px; top: 0; width: 400px;
-            background: linear-gradient(145deg, #161620, #0d0d14); /* 딥 다크 배경 */
+            background: linear-gradient(145deg, #161620, #0d0d14); 
             color: #fff; font-family: 'Pretendard', sans-serif;
             padding: 40px 30px; box-sizing: border-box;
         }
@@ -222,7 +200,6 @@
         .rt-footer { text-align: right; font-size: 13px; color: #a1a1aa; letter-spacing: 1px; }
         .rt-footer span { font-size: 24px; font-weight: 700; color: #e4c585; margin-left: 10px; letter-spacing: 0; }
 
-        /* ✨ 모달 팝업창 프리미엄 디자인 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); display: none; justify-content: center; align-items: center; z-index: 1000;
@@ -255,36 +232,30 @@
             background: transparent; color: #71717a; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; cursor: pointer; 
         }
 
-        /* ✨ 모든 버튼의 공통 뼈대 (세련된 비율과 쫀득한 애니메이션 준비) */
         button {
             font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-            border-radius: 30px; /* 세련된 알약(Pill) 모양 */
+            border-radius: 30px; 
             font-size: 16px; font-weight: 700; letter-spacing: 1px;
             padding: 14px 32px;
             cursor: pointer;
             outline: none;
-            /* 🚀 마우스 올리거나 누를 때 쫀득하게 반응하는 물리 엔진 */
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
         }
 
-        /* ✨ 1. 메인 버튼 (예: 추첨하기 버튼) - 화려한 골드 메탈릭 */
         .btn-primary { 
-            /* 금빛 그라데이션 */
             background: linear-gradient(135deg, #f6d365 0%, #ffb347 100%);
-            color: #1a1a1a; /* 글자는 진한 먹색으로 가독성 확보 */
+            color: #1a1a1a; 
             border: 1px solid rgba(255, 255, 255, 0.5);
-            /* 핵심: 밖으로는 금빛 후광, 안으로는 메탈릭한 입체감(베벨) 부여 */
             box-shadow: 
-                0 8px 20px rgba(255, 179, 71, 0.4), /* 금빛 후광 */
-                inset 0 2px 2px rgba(255, 255, 255, 0.6), /* 위쪽 빛 반사 */
-                inset 0 -4px 4px rgba(0, 0, 0, 0.15); /* 아래쪽 두께감 그림자 */
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5); /* 글자에 살짝 음각 효과 */
+                0 8px 20px rgba(255, 179, 71, 0.4), 
+                inset 0 2px 2px rgba(255, 255, 255, 0.6), 
+                inset 0 -4px 4px rgba(0, 0, 0, 0.15); 
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5); 
         }
 
-        /* ✨ 2. 서브 & 모달 버튼 (예: 초기화, 기록 저장, 모달 닫기) - 다크 글래스 */
         .btn-secondary { 
             background: rgba(20, 20, 20, 0.6);
-            color: #e4c585; /* 시그니처 샴페인 골드 색상 */
+            color: #e4c585; 
             border: 1px solid rgba(228, 197, 133, 0.3);
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             box-shadow: 
@@ -292,26 +263,22 @@
                 inset 0 1px 1px rgba(255, 255, 255, 0.05);
         }
 
-        /* ✨ 마우스 오버 (Hover) - 살짝 떠오르며 빛남 */
         button:hover {
-            transform: translateY(-2px); /* 위로 살짝 뜸 */
-            filter: brightness(1.1); /* 전체적으로 10% 밝아짐 */
+            transform: translateY(-2px); 
+            filter: brightness(1.1); 
         }
 
-        /* ✨ 마우스 클릭 (Active) - 꾹 눌리는 타격감! */
         button:active {
-            transform: translateY(2px) scale(0.97); /* 쑥 들어가면서 살짝 작아짐 */
-            /* 눌렸으므로 그림자 효과를 줄여서 리얼리티 부여 */
+            transform: translateY(2px) scale(0.97); 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.2); 
         }
 
-        /* ✨ 모달 닫기 버튼 (프리미엄 투명 글래스) */
         .btn-close {
             position: absolute; top: 20px; right: 20px; z-index: 1000000;
             padding: 8px 18px; font-size: 14px; font-weight: bold;
-            background: rgba(255, 255, 255, 0.15); /* 기존보다 살짝 더 투명하고 은은하게 */
+            background: rgba(255, 255, 255, 0.15); 
             color: white; 
-            border: 1px solid rgba(255, 255, 255, 0.3); /* 얇은 테두리로 디테일 추가 */
+            border: 1px solid rgba(255, 255, 255, 0.3); 
             border-radius: 20px;
             backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -444,7 +411,6 @@
         function startDrawSequence() {
             if (isDrawing) return;
 
-            // ✨ 1. 추첨 기계 작동! 레버를 당기는 묵직한 손맛 (50ms)
             if (navigator.vibrate) navigator.vibrate(50);
 
             isDrawing = true;
@@ -471,6 +437,7 @@
 
             setTimeout(() => {
                 drawBtn.innerText = "추첨 중... 🎯"; 
+                // 수정한 번호 생성 로직 호출
                 const targetNumbers = generateWinningNumbers();
                 let drawCount = 0;
 
@@ -489,17 +456,60 @@
             }, 4000); 
         }
 
+        // ==========================================
+        // ✨ 날짜별 필수 번호 포함 로직으로 개선된 부분
+        // ==========================================
         function generateWinningNumbers() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const currentDateStr = `${yyyy}-${mm}-${dd}`;
+
+            // 추후 년도별/기간별 설정 배열 (2027년도 아래에 동일한 포맷으로 추가 가능)
+            const requiredNumbersConfig = [
+                // 2026년 설정
+                { startDate: '2026-03-01', endDate: '2026-04-25', numbers: [4, 9] },
+                { startDate: '2026-04-26', endDate: '2026-06-27', numbers: [1, 6, 16] },
+                { startDate: '2026-06-28', endDate: '2026-08-29', numbers: [6, 9] },
+                { startDate: '2026-08-30', endDate: '2026-10-31', numbers: [1, 4, 14, 41] }, // 오름차순 삽입 무관
+                { startDate: '2026-11-01', endDate: '2026-12-26', numbers: [1, 4, 9] }
+                
+                // 예시: 2027년 추가 시
+                // , { startDate: '2027-01-01', endDate: '2027-02-28', numbers: [7, 17] }
+            ];
+
             let result = [];
+            
+            // 현재 날짜가 포함된 기간 찾기
+            const matchedConfig = requiredNumbersConfig.find(config => 
+                currentDateStr >= config.startDate && currentDateStr <= config.endDate
+            );
+
+            // 해당 기간의 필수 번호가 있다면 결과 배열에 미리 담기
+            if (matchedConfig) {
+                result = [...matchedConfig.numbers]; 
+            }
+
+            // 총 7개(보너스 포함)가 될 때까지 중복 없는 랜덤 번호 추가
             while (result.length < 7) {
                 let randomNum = Math.floor(Math.random() * 45) + 1;
-                if (!result.includes(randomNum)) result.push(randomNum);
+                if (!result.includes(randomNum)) {
+                    result.push(randomNum);
+                }
             }
+
+            // 필수 번호가 항상 앞쪽에만(먼저) 나오는 것을 방지하기 위해 배열 순서 무작위 섞기 (Fisher-Yates Shuffle)
+            for (let i = result.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [result[i], result[j]] = [result[j], result[i]];
+            }
+
             return result;
         }
+        // ==========================================
 
         function extractBall(number, isBonus) {
-            // ✨ 2. 공이 하나씩 관으로 튕겨 들어갈 때마다 짧게 '탁!' 치는 손맛 (15ms)
             if (navigator.vibrate) navigator.vibrate(15);
             
             const targetBall = balls.find(b => b.number === number);
@@ -513,7 +523,7 @@
             if (isBonus) {
                 const plusSign = document.createElement('div');
                 plusSign.className = 'bonus-plus';
-                plusSign.innerText = '+'; // ✨ 깔끔한 얇은 + 기호로 변경
+                plusSign.innerText = '+'; 
                 resultsContainer.appendChild(plusSign);
             }
 
@@ -540,7 +550,6 @@
                 const row = document.createElement('div');
                 row.className = 'history-row';
                 
-                // "게임1" 대신 프리미엄 느낌의 "SET 01" 사용
                 const turnStr = document.createElement('div');
                 turnStr.className = 'history-turn';
                 const setNum = (index + 1).toString().padStart(2, '0');
@@ -551,7 +560,6 @@
                 ballsContainer.className = 'mini-balls';
 
                 nums.forEach((num, i) => {
-                    // 보너스 기호를 세련된 얇은 + 로 변경
                     if (i === 6) {
                         const plus = document.createElement('div');
                         plus.className = 'mini-bonus-plus';
@@ -624,7 +632,6 @@
                 rowDiv.className = 'rt-row';
                 const mainNumbers = nums.slice(0, 6).sort((a, b) => a - b);
                 const numHtml = mainNumbers.map(n => `<span>${pad(n)}</span>`).join('');
-                // ✨ A 자동 대신 SET A 로 변경
                 rowDiv.innerHTML = `<div class="rt-row-label">SET ${labels[index]}</div><div class="rt-row-nums">${numHtml}</div>`;
                 rtRows.appendChild(rowDiv);
             });
@@ -636,14 +643,12 @@
             
             html2canvas(template, {
                 scale: 3, 
-                // ✨ 흰색 배경 대신 다크 테마 색상으로 캡처
                 backgroundColor: '#12121c'
             }).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 const resultImgElement = document.getElementById('result-image');
                 resultImgElement.src = imgData;
                 
-                // ✨ 다운로드 버튼 동작 설정 (클릭 시 파일 저장)
                 const downloadBtn = document.getElementById('download-img-btn');
                 downloadBtn.onclick = function() {
                     const link = document.createElement('a');
