@@ -267,7 +267,7 @@
     "age_rating": "15+",
     "runtime": "110min",
     "ott": "넷플릭스",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=Ll97jRazjSc",
     "trailer": "https://youtu.be/4266gMN3EDw",
     "poster": "https://www.themoviedb.org/t/p/w1280/5tw2FTUOBIyg6BcEtE5N2Dxut2N.jpg, https://www.themoviedb.org/t/p/w1280/jSJWVvWCX0mhptCkn81B8PCSG29.jpg"
   },
@@ -352,7 +352,7 @@
     "age_rating": "15+",
     "runtime": "",
     "ott": "넷플릭스",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=ZkFhAVPtajU",
     "trailer": "https://youtu.be/iaQYb_Uuq8w",
     "poster": "https://www.themoviedb.org/t/p/w1280/bKWsfdPZBHEpYjlbDTHOJucZPRQ.jpg"
   },
@@ -437,7 +437,7 @@
     "age_rating": "12+",
     "runtime": "118min",
     "ott": "넷플릭스",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=OYVSHdMLRkA",
     "trailer": "https://youtu.be/De12eNHxTQg",
     "poster": "https://www.themoviedb.org/t/p/w1280/tDWjyOofkQDnTMT6Bo23Cxmbf9N.jpg, https://www.themoviedb.org/t/p/w1280/hOi5K1tx8aAZN239VU1qzvyao87.jpg"
   },
@@ -522,7 +522,7 @@
     "age_rating": "15+",
     "runtime": "122min",
     "ott": "넷플릭스, 왓챠, 웨이브, 쿠팡플레이",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=aU75TsK1kVs",
     "trailer": "https://youtu.be/EDKC77QS8WM",
     "poster": "https://www.themoviedb.org/t/p/w1280/zK67RUQeVXv01q6E1TnS4g3Hlw2.jpg, https://www.themoviedb.org/t/p/w1280/zcLenVWSN81H4SOwKLQo4txGw2t.jpg"
   },
@@ -563,7 +563,7 @@
   {
     "date": "01.23",
     "title": "대한민국은 국민이 합니다",
-    "year": null,
+    "year": "2026",
     "rating": "2.1",
     "recommender": "전찬일",
     "summary": "무도함과 무자비함이 가득했던 정권 아래, 어둠에 빠졌던 대한민국. 꺼져가던 민주주의의 불씨를 되살린 이 시대 가장 뜨거운 국민들의 기록",
@@ -607,14 +607,14 @@
     "age_rating": "15+",
     "runtime": "89min",
     "ott": "왓챠",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=E44FLfK6D9c",
     "trailer": "https://youtu.be/9UUcTNZKrks",
     "poster": "https://www.themoviedb.org/t/p/w1280/gLYbrbNQrw08CYPyCQxAKTmtRvM.jpg"
   },
   {
     "date": "01.20",
     "title": "만약에 우리",
-    "year": null,
+    "year": "2025",
     "rating": "3.4",
     "recommender": "<신작소개>",
     "summary": "관계의 '만약'을 가정하여 연인들의 선택과 후회를 다룬 멜로물",
@@ -692,7 +692,7 @@
     "age_rating": "12+",
     "runtime": "112min",
     "ott": "넷플릭스",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=07tOE6jO29U",
     "trailer": "https://youtu.be/vXA99nSOuvY",
     "poster": "https://www.themoviedb.org/t/p/w1280/dcneAm8XdqBvkJWRZ0ht6YQUauF.jpg"
   },
@@ -777,7 +777,7 @@
     "age_rating": "15+",
     "runtime": "",
     "ott": "애플tv+",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=SRnGTiDtDAY",
     "trailer": "https://youtu.be/zst0kOdFNu8?si=g_nOjY--Vftc9Cn6",
     "poster": "https://www.themoviedb.org/t/p/w1280/1Ukvs9q4aHe9g5MFAKZEzxsiYiH.jpg"
   },
@@ -862,7 +862,7 @@
     "age_rating": "15+",
     "runtime": "108min",
     "ott": "넷플릭스",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=ObV857h5NyE",
     "trailer": "https://youtu.be/0S2Z_zuJxQs, https://youtu.be/sYsluVIuqeA",
     "poster": "https://cdn.musicpress.kr/news/photo/202404/1670_2067_3930.jpg"
   }
