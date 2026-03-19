@@ -6,8 +6,8 @@
         "recommender": ["이재석"],
         "videos": [
             { "videoId": "BgSx-jhLwm8", "start": 7, "end": 221, "trackId": "t_260319_1", "title": "무제4", "singer": "가수4", "lyrics": "" },
-            { "videoId": "BgSx-jhLwm8", "start": 222, "end": 467, "trackId": "t_260319_2", "title": "무제5", "singer": "가수5", "lyrics": "" },
-            { "videoId": "BgSx-jhLwm8", "start": 468, "end": 665, "trackId": "t_260319_3", "title": "무제6", "singer": "가수6", "lyrics": "" }
+            { "videoId": "BgSx-jhLwm8", "start": 221.5, "end": 467, "trackId": "t_260319_2", "title": "무제5", "singer": "가수5", "lyrics": "" },
+            { "videoId": "BgSx-jhLwm8", "start": 467.5, "end": 665, "trackId": "t_260319_3", "title": "무제6", "singer": "가수6", "lyrics": "" }
             
         ]
     },
