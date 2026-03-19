@@ -5,9 +5,9 @@
         "description": "화요일의 아침 명상",
         "recommender": ["이재석"],
         "videos": [
-            { "videoId": "BgSx-jhLwm8", "start": 7, "end": 221, "trackId": "t_240319_1", "title": "무제4", "singer": "가수4", "lyrics": "" },
-            { "videoId": "BgSx-jhLwm8", "start": 222, "end": 467, "trackId": "t_240319_2", "title": "무제5", "singer": "가수5", "lyrics": "" },
-            { "videoId": "BgSx-jhLwm8", "start": 468, "end": 665, "trackId": "t_240319_3", "title": "무제6", "singer": "가수6", "lyrics": "" }
+            { "videoId": "BgSx-jhLwm8", "start": 7, "end": 221, "trackId": "t_260319_1", "title": "무제4", "singer": "가수4", "lyrics": "" },
+            { "videoId": "BgSx-jhLwm8", "start": 222, "end": 467, "trackId": "t_260319_2", "title": "무제5", "singer": "가수5", "lyrics": "" },
+            { "videoId": "BgSx-jhLwm8", "start": 468, "end": 665, "trackId": "t_260319_3", "title": "무제6", "singer": "가수6", "lyrics": "" }
             
         ]
     },
@@ -17,9 +17,9 @@
         "description": "월요일 활력 충전",
         "recommender": ["이재석"],
         "videos": [
-            { "videoId": "Oz0e5EWyn5g", "start": 8, "end": 231, "trackId": "t_240318_1", "title": "무제1", "singer": "가수1", "lyrics": "" },
-            { "videoId": "Oz0e5EWyn5g", "start": 234, "end": 442, "trackId": "t_240318_2", "title": "무제2", "singer": "가수2", "lyrics": "" },
-            { "videoId": "Oz0e5EWyn5g", "start": 443, "end": 616, "trackId": "t_240318_3", "title": "무제3", "singer": "가수3", "lyrics": "" }
+            { "videoId": "Oz0e5EWyn5g", "start": 8, "end": 231, "trackId": "t_260318_1", "title": "무제1", "singer": "가수1", "lyrics": "" },
+            { "videoId": "Oz0e5EWyn5g", "start": 234, "end": 442, "trackId": "t_260318_2", "title": "무제2", "singer": "가수2", "lyrics": "" },
+            { "videoId": "Oz0e5EWyn5g", "start": 443, "end": 616, "trackId": "t_260318_3", "title": "무제3", "singer": "가수3", "lyrics": "" }
         ]
     }
 ]
