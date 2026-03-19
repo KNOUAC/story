@@ -20,6 +20,6 @@
             { "videoId": "Oz0e5EWyn5g", "start": 8, "end": 231, "track": "무제1", "singer": "가수1", "lyrics": "" },
             { "videoId": "Oz0e5EWyn5g", "start": 231, "end": 442, "track": "무제2", "singer": "가수2", "lyrics": "" },
             { "videoId": "Oz0e5EWyn5g", "start": 442, "end": 616, "track": "무제3", "singer": "가수3", "lyrics": "" }
-        ],
+        ]
     }
 ]
