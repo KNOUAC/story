@@ -8,7 +8,7 @@
           { "videoId": "BgSx-jhLwm8", "start": 7, "end": 665 }
         ],
         "playlist": [
-            { "track": "무제1", "singer": "무명1", "lyrics": "" }.
+            { "track": "무제1", "singer": "무명1", "lyrics": "" },
             { "track": "무제2", "singer": "무명2", "lyrics": "" }
         ]
     },
@@ -21,7 +21,7 @@
           { "videoId": "Oz0e5EWyn5g", "start": 8, "end": 616 }
         ],
         "playlist": [
-            { "track": "무제1", "singer": "무명1", "lyrics": "" }.
+            { "track": "무제1", "singer": "무명1", "lyrics": "" },
             { "track": "무제2", "singer": "무명2", "lyrics": "" }
         ]
     }
