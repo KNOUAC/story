@@ -6,7 +6,6 @@ headers.txt
 .env
 .venv/
 __pycache__/
-*.mp3
 test_*
 memo*
 .DS_Store
