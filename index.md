@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "도움말"
+title: "/help"
 ---
 
 # 📚 도움말 모음
