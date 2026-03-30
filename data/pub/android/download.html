@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Feelwaa 앱 다운로드</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        @font-face {
+            font-family: 'NanumSquareRound';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+            font-weight: normal;
+            font-display: swap;
+        }
+        :root {
+            --primary-color: #111111; /* 앱의 주요 테마색 (검은색) */
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --text-main: #111111;
+            --text-sub: #6B7280;
+            --border-color: #E5E7EB;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body { font-family: 'NanumSquareRound', sans-serif; background-color: var(--bg-color); color: var(--text-main); -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* 헤더 스타일 */
+        header { height: 60px; background-color: var(--card-bg); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        .header-title { font-size: 18px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+
+        /* 메인 컨텐츠 영역 */
+        main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; padding-bottom: 40px; }
+        
+        /* 앱 카드 스타일 */
+        .download-card { background-color: var(--card-bg); width: 100%; max-width: 400px; border-radius: 24px; padding: 40px 24px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+        /* 앱 아이콘 (이미지) 스타일 */
+        .app-icon-container { width: 100px; height: 100px; border-radius: 22px; background-color: #FFF; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; justify-content: center; align-items: center; margin-bottom: 24px; overflow: hidden; border: 1px solid var(--border-color); }
+        .app-icon-image { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 앱 이름 및 설명 */
+        .app-name { font-size: 24px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .app-version { font-size: 13px; color: var(--text-sub); background-color: #F3F4F6; padding: 4px 10px; border-radius: 12px; margin-bottom: 16px; font-weight: 500; }
+        .app-description { font-size: 15px; color: var(--text-sub); line-height: 1.6; margin-bottom: 32px; padding: 0 10px; word-break: keep-all; }
+
+        /* 다운로드 버튼 스타일 ⭐️ */
+        .download-button { display: flex; width: 100%; height: 56px; background-color: var(--primary-color); color: #FFFFFF; border-radius: 16px; justify-content: center; align-items: center; text-decoration: none; font-size: 16px; font-weight: 700; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(17,17,17,0.15); }
+        .download-button i { margin-right: 10px; font-size: 18px; }
+        
+        /* 버튼 클릭/호버 효과 */
+        .download-button:hover { background-color: #333333; transform: translateY(-1px); box-shadow: 0 6px 15px rgba(17,17,17,0.2); }
+        .download-button:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(17,17,17,0.1); }
+
+        /* 안내 문구 */
+        .notice-box { margin-top: 24px; text-align: left; background-color: #F9FAFB; border-radius: 12px; padding: 16px; width: 100%; border: 1px solid var(--border-color); }
+        .notice-title { font-size: 13px; font-weight: 600; color: #4B5563; margin-bottom: 8px; }
+        .notice-text { font-size: 12px; color: #6B7280; line-height: 1.8; list-style-position: inside; }
+        .notice-text li { margin-bottom: 4px; }
+
+        /* 하단 푸터 */
+        footer { height: 50px; display: flex; justify-content: center; align-items: center; border-top: 1px solid var(--border-color); background-color: var(--card-bg); }
+        .footer-text { font-size: 12px; color: #9CA3AF; }
+
+        /* 로딩 화면 (JSON 불러오기 전) */
+        #loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.9); display: flex; justify-content: center; align-items: center; z-index: 1000; flex-direction: column; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-color); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #loading-overlay p { font-size: 14px; color: var(--text-sub); }
+
+    </style>
+</head>
+<body>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>앱 정보를 불러오고 있습니다...</p>
+    </div>
+
+    <header>
+        <div class="header-title">Feelwaa 앱 설치</div>
+    </header>
+
+    <main>
+        <div class="download-card">
+            <div class="app-icon-container">
+                <img id="app-icon" src="./adaptive-icon.png" alt="앱 아이콘" class="app-icon-image">
+            </div>
+
+            <h1 id="app-name-display" class="app-name">Feelwaa</h1>
+            <span id="app-version-display" class="app-version">v1.0.0</span>
+            
+            <p class="app-description">
+                Feelwaa와 사용자 지정 데이터로 이야기를 나누어보세요.
+            </p>
+
+            <a id="download-link" href="#" class="download-button">
+                <i class="fab fa-android"></i> 안드로이드 앱 다운로드
+            </a>
+
+            <div class="notice-box">
+                <h4 class="notice-title"><i class="fas fa-info-circle"></i> 설치 전 확인해주세요</h4>
+                <ul class="notice-text">
+                    <li>본 앱은 개발 중인 테스트 버전(.apk)입니다.</li>
+                    <li>설치 시 '출처를 알 수 없는 앱' 경고가 뜰 수 있습니다.</li>
+                    <li><strong>'무시하고 설치'</strong>를 눌러야 진행이 가능합니다.</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-text">© 2026 Feelwaa Dev Team.</div>
+    </footer>
+
+    <script>
+        // 💡 깃허브에 같이 올릴 JSON 파일의 이름 (또는 주소)
+        const JSON_FILE_PATH = './app_config.json'; 
+
+        async function loadAppConfig() {
+            try {
+                // 1. JSON 파일 fetch (가져오기)
+                const response = await fetch(JSON_FILE_PATH, {
+                    // 캐시를 방지하여 항상 최신 JSON을 가져오도록 설정
+                    cache: 'no-store' 
+                });
+                if (!response.ok) throw new Error('설정 파일을 불러오지 못했습니다.');
+                
+                // 2. JSON 파싱
+                const config = await response.json();
+
+                // 3. HTML 화면 업데이트 ⭐️
+                document.getElementById('download-link').href = config.apk_url; // APK 링크 업데이트
+                document.getElementById('app-icon').src = config.icon_url;   // 아이콘 이미지 업데이트
+                document.getElementById('app-version-display').textContent = config.version; // 버전 업데이트
+
+                // 로딩 화면 제거
+                document.getElementById('loading-overlay').style.display = 'none';
+
+            } catch (error) {
+                console.error('오류 발생:', error);
+                document.getElementById('loading-overlay').innerHTML = `
+                    <i class="fas fa-exclamation-triangle" style="font-size:30px; color:#FF3B30; margin-bottom:15px;"></i>
+                    <p style="color:#FF3B30; font-weight:600;">앱 정보를 가져오는 데 실패했습니다.</p>
+                    <p style="font-size:12px; margin-top:5px; color:#888;">잠시 후 다시 시도해주세요.</p>
+                `;
+            }
+        }
+
+        // 페이지 로드 시 실행
+        window.addEventListener('load', loadAppConfig);
+    </script>
+</body>
+</html>

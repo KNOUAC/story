@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ page.title }}</title>
+  
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+</head>
+<body>
+    
+<div class="nomad-doc">
+  <div class="wrap">
+    <h1>{{ page.title }}</h1>
+    
+    {{ content }}
+  </div>
+</div>
+
+<details class="toc-drawer" aria-label="목차">
+  <summary class="toc-toggle" aria-label="목차 열기/닫기">목차</summary>
+  <nav class="toc-panel" id="toc-container" aria-label="책갈피 목차">
+    <ul>
+      <li><a href="#sec-symptoms">본문 목차를 클릭하세요</a></li>
+    </ul>
+  </nav>
+</details>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+
+</body>
+</html>
