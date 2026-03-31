@@ -9,4 +9,8 @@ title: "/help"
 
 ## 💻 Cursor / VSCode 설정
 * [저장 시 자동 삭제(포맷/수정) 막기 프로젝트 전용 가이드](./docs/cursor/01_prevent_code_deletion_on_save.html)
+
+## 📦 Expo / EAS
+* [eas.json 빌드 프로필 정의](./docs/eas/01_define_build_profiles_in_eas.json.html)
+
 ---
