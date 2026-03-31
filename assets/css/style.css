@@ -1,5 +1,6 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
 
 :root {
   --bg-body: #f8fafc;        
@@ -47,7 +48,7 @@ body {
   border-radius: 6px !important; 
   font-size: 0.98em !important; 
   border: 1px solid #cbd5e1 !important;
-  font-family: 'Pretendard', monospace !important;
+  font-family: 'JetBrains Mono', monospace !important;
   text-shadow: none !important; /* Prism이 강제로 넣는 텍스트 그림자 제거 */
 }
 
@@ -152,9 +153,9 @@ body {
 .code-container pre[class*="language-"],
 .code-container code[class*="language-"],
 .code-container .line-numbers-rows {
-  font-size: 13px !important;
+  font-size: 14px !important;
   line-height: 1.6 !important;
-  font-family: 'JetBrains Mono', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace !important;
 }
 
 /* 6. 목차 */
