@@ -1,0 +1,33 @@
+name: Universal Data Sync API
+
+# 외부에서 보내는 'update_json' 이라는 이름의 웹훅(신호)만 수신합니다.
+on:
+  repository_dispatch:
+    types: [update_json]
+
+jobs:
+  sync-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 메인 코드가 아닌 data 브랜치만 열어봅니다.
+      - name: Checkout data branch
+        uses: actions/checkout@v4
+        with:
+          ref: 'data'
+
+      # 2. 외부에서 전달받은 변수(파일이름, 데이터URL)를 사용해 파일을 덮어씁니다.
+      - name: Download new JSON payload
+        run: |
+          echo "Updating ${{ github.event.client_payload.target_file }}..."
+          curl -L "${{ github.event.client_payload.data_url }}" -o "data/json/${{ github.event.client_payload.target_file }}"
+
+      # 3. 변경된 내용을 data 브랜치에 저장합니다. (누가 바꿨는지 기록)
+      - name: Commit and Push to data branch
+        run: |
+          git config --global user.name "Data Sync Bot"
+          git config --global user.email "hoon1018@knou.ac.kr"
+          git add data/json/${{ github.event.client_payload.target_file }}
+          
+          # 변경사항이 없으면 에러 없이 스킵하고, 있으면 커밋합니다.
+          git commit -m "update: ${{ github.event.client_payload.target_file }} by ${{ github.event.client_payload.updater_name }}" || echo "No changes to commit"
+          git push origin data
