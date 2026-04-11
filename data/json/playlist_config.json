@@ -1,12 +1,14 @@
-[
-    {
+{
+    "202603": {
         "badge": "MONTHLY VIBE",
         "title": "Mar 2026",
-        "playlistId": "PLzDGA5pYxFtgWtNcRq9Gh0pgpqUGiDDRX"
+        "playlistId": "PLzDGA5pYxFtgWtNcRq9Gh0pgpqUGiDDRX",
+        "share_link": "https://music.youtube.com/playlist?list=PLzDGA5pYxFtgWtNcRq9Gh0pgpqUGiDDRX&si=nXVlEHR-qkHywCPQ"
     },
-    {
+    "202604": {
         "badge": "MONTHLY VIBE",
         "title": "Apr 2026",
-        "playlistId": "PLzDGA5pYxFtjol95R8V5mBBzH8CucpKxA"
+        "playlistId": "PLzDGA5pYxFtjol95R8V5mBBzH8CucpKxA",
+        "share_link": "https://music.youtube.com/playlist?list=PLzDGA5pYxFtjol95R8V5mBBzH8CucpKxA&si=5-lOQZtt4We6GSy2"
     }
-]
+}
