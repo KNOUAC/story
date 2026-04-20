@@ -1,8 +1,21 @@
 name: Universal Data Sync API
 
 on:
-  repository_dispatch:
-    types: [update_json]
+  workflow_dispatch:
+    inputs:
+      target_file:
+        description: '동기화할 대상 JSON 파일을 선택하세요.'
+        required: true
+        type: choice
+        options:
+          - sports_factory.json
+          - cinema_jiok.json
+          - playlist_5pm.json
+      updater_name:
+        description: '업데이트 실행자 (예: knouac)'
+        required: false
+        default: 'knouac'
+        type: string
 
 jobs:
   sync-and-commit:
@@ -17,21 +30,24 @@ jobs:
         env:
           FETCH_TOKEN: ${{ secrets.MY_CLASSIC_PAT }}
         run: |
-          echo "Updating ${{ github.event.client_payload.target_file }}..."
+          echo "Updating ${{ inputs.target_file }}..."
 
           mkdir -p data/json
 
+          # 동기화할 대상의 로컬 저장소 Raw URL을 명시적으로 조합합니다.
+          DATA_URL="https://raw.githubusercontent.com/knouac/data-batch/data/data/json/${{ inputs.target_file }}"
+
           curl -H "Authorization: token $FETCH_TOKEN" \
-               -L "${{ github.event.client_payload.data_url }}" \
-               -o "data/json/${{ github.event.client_payload.target_file }}"
+               -L "$DATA_URL" \
+               -o "data/json/${{ inputs.target_file }}"
 
       - name: Commit and Push to data branch
         run: |
           git config --global user.name "Data Sync Bot"
           git config --global user.email "hoon1018@knou.ac.kr"
-          git add data/json/${{ github.event.client_payload.target_file }}
+          git add data/json/${{ inputs.target_file }}
           
-          git commit -m "update: ${{ github.event.client_payload.target_file }} by ${{ github.event.client_payload.updater_name }}" || echo "No changes to commit"
+          git commit -m "update: ${{ inputs.target_file }} by ${{ inputs.updater_name }}" || echo "No changes to commit"
           git push origin data
 
       - name: Send Slack Notification (Success)
@@ -40,7 +56,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"✅ [Success] (${{ github.event.client_payload.target_file }} by ${{ github.event.client_payload.updater_name }})"}' \
+          --data '{"text":"✅ [Success] (${{ inputs.target_file }} by ${{ inputs.updater_name }}) Owner Repo 동기화 완료 🚀"}' \
           $SLACK_WEBHOOK_URL
 
       - name: Send Slack Notification (Failure)
