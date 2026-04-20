@@ -1,5 +1,20 @@
 [
     {
+        "id": 15,
+        "date": "2026.04.16",
+        "title": "수건 한 장이면 뻐근함 끝...겸공 어깨 스트레칭",
+        "presenters": [
+            "임향기"
+        ],
+        "videos": [
+            {
+                "videoId": "8WmOGUO0FBg",
+                "start": 9618,
+                "end": 0
+            }
+        ]
+    },
+    {
         "id": 14,
         "date": "2026.04.09",
         "title": "굳은 목 풀고 담까지 잡는 겸공표 목 스트레칭",
@@ -10,8 +25,8 @@
         "videos": [
             {
                 "videoId": "S7GskhztbQU",
-                "start": 9407,
-                "end": 10230
+                "start": 8698,
+                "end": 0
             }
         ]
     },
